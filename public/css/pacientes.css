@@ -1,0 +1,393 @@
+main .main-table{
+    margin-top: 2rem;
+}
+main .main-table .head{
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 1.2rem;
+}
+main .main-table .head a{
+display: flex;
+align-items: center;
+background-color: var(--clr-success);
+border-radius: var(--card-border-radius);
+padding: 0.1rem 0.3rem;
+color: var(--clr-white);
+border: 1px solid var(--clr-success);
+text-transform: uppercase;
+}
+main .main-table .head a:hover{
+
+background-color: var(--clr-white);
+color: var(--clr-success);
+border:1px solid var(--clr-success);
+}
+main .main-table .head .search{
+
+background-color: var(--clr-dark);
+color: var(--clr-white);
+border:1px solid var(--clr-success);
+}
+main .main-table .head .search:hover{
+
+background-color: var(--clr-white);
+color: var(--clr-primary);
+border:1px solid var(--clr-primary);
+}
+main .main-table .right{
+
+display: flex;
+}
+main .main-table h2{
+    color: var(--clr-dark);
+}
+main .main-table table{
+    background-color: var(--clr-white);
+    width: 100%;
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    color: var(--clr-dark);
+
+}
+main .main-table table:hover{
+    box-shadow: none;
+}
+main table tbody tr{
+height: 3.8rem;
+border-bottom: 1px solid var(--clr-white);
+color: var(--clr-dark-variant);
+
+}
+main table tbody td{
+
+    height: 3.8rem;
+    border-bottom: 1px solid var(--clr-dark);
+}
+main table tbody tr:last-child td{
+border: none;
+}
+main .main-table a{
+    text-align: center;
+    display: block;
+    margin: 1rem;
+}
+main .main-table .actions{
+    display: flex;
+    justify-content: center;
+
+}
+main .main-table .actions span{
+
+   font-size: 16pt;
+   padding: 4px;
+   border-radius: 5px;
+}
+main .main-table .actions .show{
+
+   background-color: var(--clr-dark);
+   color: var(--clr-white);
+}
+main .main-table .actions .edit{
+
+   background-color: blue;
+   color: white;
+}
+main .main-table .actions .delete{
+
+   color: white;
+   background-color: red;
+}
+
+main .search-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #7777;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+main .search-modal.close{
+
+    display: none;
+}
+main .search-modal .modal-top{
+    display: flex;
+    justify-content: space-between;
+    padding: 2px;
+    border-radius: 5px;
+    color: white;
+    margin: 4px;
+
+}
+main .search-modal .modal-top .close{
+background-color: #ff000075;
+color: white;
+border-radius: 5px;
+cursor: pointer;
+
+}
+main .search-modal .modal-top .close:hover{
+background-color: #ff0000;
+color: white;
+border-radius: 5px;
+
+}
+main .search-modal .modal-main{
+    background-color: transparent;
+    box-shadow: 0 0.1rem 1rem white;
+    width: 100%;
+    height: 80vh;
+    border-radius: 10px;
+    padding: 8px;
+
+}
+main .search-modal .modal-main .head{
+    display: flex;
+    background-color: var(--clr-white);
+    width: 100%;
+    gap: 0.2rem;
+   padding: 0;
+   border-radius: 5px;
+
+
+}
+main .search-modal .modal-main .head button{
+    background-color: var(--clr-dark);
+    color: white;
+    width: 100%;
+
+    height: 3rem;
+    padding: 8px;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: bolder;
+    cursor: pointer;
+
+}
+main .search-modal .modal-main .head button.active{
+    background-color: var(--clr-primary);
+
+
+}
+main .search-modal .modal-main .head .pesquisar{
+border-top-left-radius: 5px;
+
+}
+main .search-modal .modal-main .head .filtrar{
+border-top-right-radius: 5px;
+
+}
+main .search-modal .modal-main .content{
+background-color: white;
+
+
+
+}
+main .search-modal .modal-main .content .content-s{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+
+}
+main .search-modal .modal-main .content .content-s .search{
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 4px;
+width: 100%;
+margin-top: 20px;
+
+}
+main .search-modal .modal-main .content .content-s input{
+border: 1px solid var(--clr-success);
+height: 2.4rem;
+font-size: 14pt;
+padding: 0 10px;
+background-color: var(--clr-white);
+border-top-left-radius: 10px;
+width: 80%;
+
+}
+main .search-modal .modal-main .content .content-s input:focus{
+background-color:  var(--clr-white);
+
+
+}
+main .search-modal .modal-main .content .content-s span{
+border: 1px solid var(--clr-success);
+background-color: var(--clr-success);
+color: white;
+width: 3rem;
+border-left:0 ;
+height: 2.4rem;
+border-bottom-right-radius: 10px;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+
+}
+main .search-modal .modal-main .content .content-f{
+display: none;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+}
+main .search-modal .modal-main .results{
+    display: flex;
+    width: 100%;
+padding: 8px;
+margin: 0;
+
+}
+main .search-modal .modal-main .results .item{
+padding: 0;
+margin: 0;
+width: 100%;
+
+}
+main .search-modal .modal-main .results table{
+width: 100%;
+margin: 0;
+border-collapse: collapse;
+
+}
+.filtrar
+{
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+
+}
+.filtrar select{
+    border: 1px solid var(--clr-success);
+    border-radius: 5px;
+    padding: 8px;
+    outline: none;
+    height: 50px;
+}
+main .add .head  {
+    padding: 32px 8px 4px;
+
+}
+main .add form  {
+    border-radius: 5px;
+    box-shadow: 0 1px 10px #00880025;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    gap: 1rem;
+    background-color: var(--clr-white);
+
+}
+main .add form .card-control {
+    font-size: 14pt;
+    border-radius: 5px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--clr-primary);
+
+}
+
+main .add form .card-control label{
+    font-size: 14pt;
+    border-radius: 5px;
+    padding: 0 4px;
+    height: 2rem;
+
+}
+main .add form .card-control input,select,textarea{
+    font-size: 14pt;
+    border-radius: 5px;
+    background-color: #00880010;
+    padding: 0 8px;
+    height: 2rem;
+    outline: none;
+
+}
+main .add form .card-control textarea{
+
+    height: 6rem;
+
+
+}
+main .add form .card-control select{
+
+margin: 2px 0;
+}
+main .add form .card-control button{
+    font-size: 14pt;
+    border-radius: 5px;
+    background-color:  var(--clr-primary-variant);
+    color: white;
+    padding: 0 4px;
+    height: 2rem;
+    text-transform: uppercase;
+
+}
+main .add form .card-control button:hover{
+
+    background-color: white;
+    color: var(--clr-primary);
+
+
+}
+main .add form .card-control #adicionar-campo{
+    width: 32px;
+    background-color: var(--clr-dark);
+    color: var(--clr-primary);
+
+
+}
+main .show {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+
+
+}
+main .show .card{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--card-border-radius);
+
+
+}
+main .show .card img{
+
+  margin-top:  -10px;
+
+
+}
+main .show .card .dados{
+
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 8px;
+  border-bottom-left-radius:2rem ;
+  border-bottom-right-radius:2rem ;
+  justify-content: space-around;
+
+
+}
+
