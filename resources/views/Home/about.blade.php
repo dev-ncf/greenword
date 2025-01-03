@@ -29,12 +29,12 @@
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                     <p class="d-inline-block border rounded-pill py-1 px-4">Sobre nós</p>
                     <h1 class="mb-4">Por que você deve confiar em nós? Conheça mais sobre nós!</h1>
-                    <p>Na Green Word, nos dedicamos à prática da medicina ervanária, utilizando o poder das plantas
+                    <p>Na CS-MEPI, nos dedicamos à prática da medicina ervanária, utilizando o poder das plantas
                         medicinais e remédios naturais para tratar e promover o bem-estar. Nossa equipe é composta por
                         profissionais experientes que aplicam conhecimentos tradicionais e científicos para oferecer
                         tratamentos eficazes e personalizados, com foco na saúde holística e no equilíbrio do corpo e da
                         mente.</p>
-                    <p class="mb-4">Ao escolher a Green Word, você opta por uma abordagem natural e segura para cuidar da
+                    <p class="mb-4">Ao escolher a CS-MEPI, você opta por uma abordagem natural e segura para cuidar da
                         sua saúde. Estamos comprometidos em proporcionar um atendimento individualizado e de qualidade,
                         respeitando a natureza e utilizando as melhores práticas da medicina tradicional para ajudar você a
                         alcançar uma vida mais saudável e equilibrada.</p>

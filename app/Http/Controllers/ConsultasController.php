@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Agenda;
 use App\Models\Consulta;
 use App\Models\Doenca;
+use App\Models\Medico;
 use App\Models\Paciente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ class ConsultasController extends Controller
      * Display a listing of the resource.
      */
     private function novasAgendas(){
-       return Agenda::where('tipo', 'Externa')->orderBy('id', 'desc')->paginate(3);
+       return Agenda::where('tipo', '=','Externa')->where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
     }
     public function index(Request $request, $data=null)
     {
@@ -40,8 +41,9 @@ class ConsultasController extends Controller
         //
         $pacientes = Paciente::all();
         $doencas = Doenca::all();
+        $medicos = Medico::all();
         $ultimasAtualizacoes = $this->novasAgendas();
-        return view('Admin.Consultas.add',compact(['doencas','pacientes','ultimasAtualizacoes']));
+        return view('Admin.Consultas.add',compact(['doencas','pacientes','ultimasAtualizacoes','medicos']));
     }
 
     /**
@@ -55,6 +57,8 @@ class ConsultasController extends Controller
         'doenca' => 'required|array|min:1',             //
         'doenca.*' => 'exists:doencas,id',
         'data_consulta' => 'required|date',
+        'nivel' => 'required|string',
+        'medico_id' => 'required|exists:medicos,id',
         'observacoes' => 'nullable|string|max:500',     // Observações opcionais
     ],[
         'paciente_id.exists'=>'ID do paciente deve existir na tabela pacientes',
@@ -65,6 +69,7 @@ class ConsultasController extends Controller
 
 
      $paciente = Paciente::findOrFail($validatedData['paciente_id']);
+     $medico = Medico::findOrFail($validatedData['medico_id']);
 
     // Criar a consulta
     DB::beginTransaction();
@@ -73,6 +78,8 @@ class ConsultasController extends Controller
         $consulta = Consulta::create([
         'paciente_id' => $paciente->id,
         'data_consulta' => $validatedData['data_consulta'],
+        'nivel' => $validatedData['nivel'],
+        'medico_id' => $medico->id,
         'observacoes' => $validatedData['observacoes'] ?? null,
     ]);
 
@@ -100,9 +107,12 @@ class ConsultasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Consulta $consulta)
     {
         //
+          $ultimasAtualizacoes = $this->novasAgendas();
+          $proximaAgenda = Agenda::where('paciente_id','=',$consulta->paciente_id)->where('estado','=','0')->first();
+        return view('Admin.Consultas.show',compact(['consulta','ultimasAtualizacoes','proximaAgenda']));
     }
     public function estado(Consulta $consulta)
     {

@@ -28,6 +28,25 @@
                 <button type="button" id="adicionar-campo" onclick="addDiseaseField()">+</button>
             </div>
             <div class="card-control">
+                <label for="nivvel">Nível</label>
+                <select type="date" name="nivel" id="nivel" required>
+                    <option value="" selected disabled>Selecione o nível</option>
+                    <option value="Normal (-)">Normal (-)</option>
+                    <option value="Pouco anormal(+)">Pouco anormal(+)</option>
+                    <option value="Moderadamente anormal (++)">Moderadamente anormal (++)</option>
+                    <option value="Severamente anormal (+++)">Severamente anormal (+++)</option>
+                </select>
+            </div>
+            <div class="card-control">
+                <label for="medico">Medico</label>
+                <select type="date" name="medico_id" id="medico" required>
+                    <option value="" selected disabled>Selecione o Médico</option>
+                    @foreach ($medicos as $medico)
+                        <option value="{{ $medico->id }}">{{ $medico->nome }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="card-control">
                 <label for="data_consulta">Data da Consulta</label>
                 <input type="date" name="data_consulta" id="data_consulta" required>
             </div>

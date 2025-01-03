@@ -45,7 +45,8 @@
                                         check_circle
                                     </span></a>
                             @endif
-                            <a href=""><span class="material-symbols-sharp show">visibility</span></a>
+                            <a href="{{ route('show-consulta', $consulta->id) }}"><span
+                                    class="material-symbols-sharp show">visibility</span></a>
                             <a href="javascript:;" id="delete-{{ $consulta->id }}" rota="consultas/destroy"
                                 onclick="return confirmDeletion(event)" class="btn btn-sm bg-danger"
                                 dado='{{ $consulta->id }}'><span class="material-symbols-sharp delete">delete</span></a>
@@ -142,7 +143,7 @@
             </div>
         </div>
     </div>
-   @if ($errors->any())
+    @if ($errors->any())
         @include('Admin.error')
     @endif
     @if (session('success'))

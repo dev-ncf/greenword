@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Green World</title>
+    <title>CS-MEPI </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -56,7 +56,7 @@
                 </div>
                 <div class="h-100 d-inline-flex align-items-center py-3">
                     <small class="far fa-clock text-primary me-2"></small>
-                    <small>Seg - Sex : 08h - 17h </small>
+                    <small>Seg - Sex : 07:30 - 17h </small>
                 </div>
             </div>
             <div class="col-lg-5 px-5 text-end">
@@ -101,7 +101,7 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
         <a href="{{ route('home') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h1 class="m-0 text-primary"><i class="far fa-hospital me-3"></i>Green World</h1>
+            <h1 class="m-0 text-primary"><i class="far fa-hospital me-3"></i>CS-MEPI</h1>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>

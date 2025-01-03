@@ -27,7 +27,7 @@
                 <input type="text" id="" min="0" name="especialidade" placeholder="Digite especialidade">
             </div>
             <div class="card-control">
-                <label for="Foto">Especialidade</label>
+                <label for="Foto">Foto</label>
                 <input type="file" id="" min="0" name="foto">
             </div>
             <div class="card-control">

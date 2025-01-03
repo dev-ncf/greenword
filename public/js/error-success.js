@@ -7,4 +7,4 @@ btn.addEventListener("click", () => {
 
 setTimeout(() => {
 container.style.display = 'none';
-}, 5000);
+}, 2000);

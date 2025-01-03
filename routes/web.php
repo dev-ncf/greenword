@@ -54,6 +54,7 @@ Route::delete('/pacientes/destroy/{paciente}', [PacientesController::class, 'des
 Route::get('/consultas/{data?}', [ConsultasController::class, 'index'])->name('consultas');
 Route::get('/consulta/add',[ConsultasController::class, 'create'])->name('add-consulta');
 Route::post('/consultas/store', [ConsultasController::class, 'store'])->name('store-consultas');
+Route::get('/consultas/show/{consulta}', [ConsultasController::class, 'show'])->name('show-consulta');
 Route::get('/consultas/estado/{consulta}', [ConsultasController::class, 'estado'])->name('estado-consultas');
 Route::delete('/consultas/destroy/{consulta}', [ConsultasController::class, 'destroy'])->name('destroy-consultas');
 

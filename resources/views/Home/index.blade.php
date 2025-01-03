@@ -63,12 +63,12 @@
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                     <p class="d-inline-block border rounded-pill py-1 px-4">Sobre nós</p>
                     <h1 class="mb-4">Por que você deve confiar em nós? Conheça mais sobre nós!</h1>
-                    <p>Na Green Word, nos dedicamos à prática da medicina ervanária, utilizando o poder das plantas
+                    <p>Na CS-MEPI, nos dedicamos à prática da medicina ervanária, utilizando o poder das plantas
                         medicinais e remédios naturais para tratar e promover o bem-estar. Nossa equipe é composta por
                         profissionais experientes que aplicam conhecimentos tradicionais e científicos para oferecer
                         tratamentos eficazes e personalizados, com foco na saúde holística e no equilíbrio do corpo e da
                         mente.</p>
-                    <p class="mb-4">Ao escolher a Green Word, você opta por uma abordagem natural e segura para cuidar da
+                    <p class="mb-4">Ao escolher a CS-MEPI, você opta por uma abordagem natural e segura para cuidar da
                         sua saúde. Estamos comprometidos em proporcionar um atendimento individualizado e de qualidade,
                         respeitando a natureza e utilizando as melhores práticas da medicina tradicional para ajudar você a
                         alcançar uma vida mais saudável e equilibrada.</p>
@@ -95,37 +95,29 @@
                     <div class="service-item bg-light rounded h-100 p-5">
                         <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
                             style="width: 65px; height: 65px;">
-                            <i class="fa fa-heartbeat text-primary fs-4"></i>
+                            <i class="fa fa-newspaper text-primary fs-4"></i>
                         </div>
-                        <h4 class="mb-3">Cardiologia</h4>
-                        <p class="mb-4">A cardiologia é a especialidade médica que trata de doenças do coração e do
-                            sistema circulatório, como hipertensão, arritmias e doenças cardíacas.</p>
-                        <p class="mb-4 hidden" id="l-m-c">Cardiologistas utilizam exames como eletrocardiogramas (ECG),
-                            ecocardiogramas e
-                            testes de esforço para diagnosticar e monitorar condições cardíacas. O tratamento pode incluir
-                            medicação, mudanças no estilo de vida e, em alguns casos, procedimentos cirúrgicos. O objetivo
-                            da cardiologia é prevenir doenças cardíacas, melhorar a função do coração e garantir uma vida
-                            saudável e longa aos pacientes.</p>
-                        <a class="btn" id="btn-l-c"><i class="fa fa-plus text-primary me-3"></i>Ler mais</a>
+                        <h4 class="mb-3">Consultas</h4>
+                        <p class="mb-4">Consultas referem-se a encontros ou atendimentos realizados entre profissionais de
+                            saúde e pacientes, com o objetivo de avaliar, diagnosticar, tratar ou monitorar condições de
+                            saúde. Elas podem ocorrer em diferentes áreas da medicina, odontologia, psicologia e outras
+                            especialidades.</p>
+
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="service-item bg-light rounded h-100 p-5">
                         <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
                             style="width: 65px; height: 65px;">
-                            <i class="fa fa-x-ray text-primary fs-4"></i>
+                            <i class="fa fa-wheelchair text-primary fs-4"></i>
                         </div>
-                        <h4 class="mb-3">Pulmonologia</h4>
-                        <p class="mb-4">A pulmonologia é a especialidade médica que se dedica ao diagnóstico e tratamento
-                            de doenças dos pulmões e do sistema respiratório, como asma, pneumonia, DPOC (doença pulmonar
-                            obstrutiva crônica) e câncer de pulmão.</p>
-                        <p class="mb-4 hidden" id="l-m-p">Os pneumologistas realizam exames como radiografias,
-                            tomografias e
-                            espirometria
-                            para avaliar a função pulmonar e diagnosticar doenças respiratórias. O tratamento envolve
-                            medicação, terapias respiratórias e, em alguns casos, cirurgia. O objetivo da pulmonologia é
-                            promover a saúde pulmonar, aliviar sintomas e prevenir complicações respiratórias.</p>
-                        <a class="btn" id="btn-l-p"><i class="fa fa-plus text-primary me-3"></i>Ler mais</a>
+                        <h4 class="mb-3">Fisioterapia</h4>
+                        <p class="mb-4">A fisioterapia é uma área da saúde voltada para a prevenção, diagnóstico e
+                            tratamento de disfunções do movimento e problemas relacionados à funcionalidade do corpo humano.
+                            Ela utiliza métodos terapêuticos baseados em técnicas manuais, exercícios físicos, equipamentos
+                            tecnológicos e outros recursos para promover a reabilitação, aliviar dores, melhorar a qualidade
+                            de vida e prevenir lesões ou doenças.</p>
+
                     </div>
                 </div>
 
@@ -133,19 +125,28 @@
                     <div class="service-item bg-light rounded h-100 p-5">
                         <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
                             style="width: 65px; height: 65px;">
-                            <i class="fa fa-wheelchair text-primary fs-4"></i>
+                            <i class="fa fa-x-ray text-primary fs-4"></i>
                         </div>
-                        <h4 class="mb-3">Ortopedia</h4>
-                        <p class="mb-4">A ortopedia é a especialidade médica que trata de doenças e lesões nos ossos,
-                            articulações, músculos, ligamentos e tendões, como fraturas, artrite e lesões esportivas.</p>
-                        <p class="mb-4 hidden" id="l-m-o">Os ortopedistas utilizam exames como raios-X, ressonância
-                            magnética
-                            (RM) e
-                            tomografia computadorizada (TC) para diagnosticar condições musculoesqueléticas. O tratamento
-                            pode incluir medicação, fisioterapia e cirurgias como a colocação de próteses articulares. O
-                            objetivo da ortopedia é restaurar a mobilidade, aliviar a dor e melhorar a qualidade de vida do
-                            paciente.</p>
-                        <a class="btn" id="btn-l-o"><i class="fa fa-plus text-primary me-3"></i>Ler mais</a>
+                        <h4 class="mb-3">Fitoterapia</h4>
+                        <p class="mb-4">A fitoterapia é uma prática terapêutica que utiliza plantas medicinais e seus
+                            derivados para prevenir, aliviar ou tratar doenças e condições de saúde. Ela se baseia nos
+                            princípios ativos encontrados nas plantas, como óleos essenciais, alcaloides, flavonoides e
+                            outros compostos químicos naturais, que possuem propriedades medicinais reconhecidas.</p>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item bg-light rounded h-100 p-5">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+                            style="width: 65px; height: 65px;">
+                            <i class="fa fa-heartbeat text-primary fs-4"></i>
+                        </div>
+                        <h4 class="mb-3">Tratamento</h4>
+                        <p class="mb-4">Tratamento refere-se a todas as intervenções, métodos ou terapias utilizadas para
+                            aliviar sintomas, curar doenças ou melhorar a qualidade de vida de uma pessoa. Ele pode incluir
+                            abordagens farmacológicas, não farmacológicas, cirúrgicas ou psicológicas, dependendo da
+                            condição ou necessidade do paciente.</p>
+
                     </div>
                 </div>
 
@@ -281,7 +282,10 @@
                         </div>
                         <div class="ms-4">
                             <p class="mb-2">Ligue para!</p>
-                            <h5 class="mb-0">+258800000000</h5>
+                            <h5 class="mb-0">+258844095646</h5>
+                            <h5 class="mb-0">+258844140106</h5>
+                            <h5 class="mb-0">+258879995244</h5>
+                            <h5 class="mb-0">+25886595646</h5>
                         </div>
                     </div>
                     <div class="bg-light rounded d-flex align-items-center p-5">
@@ -291,7 +295,7 @@
                         </div>
                         <div class="ms-4">
                             <p class="mb-2">Mande um email</p>
-                            <h5 class="mb-0">info@exemplo.com</h5>
+                            <h5 class="mb-0">mepinampula@gmail.com</h5>
                         </div>
                     </div>
                 </div>

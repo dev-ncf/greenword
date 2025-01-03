@@ -34,7 +34,10 @@
                         </div>
                         <div class="ms-4">
                             <p class="mb-2">Entre em contacto já</p>
-                            <h5 class="mb-0">+258800000000</h5>
+                            <h5 class="mb-0">+258844095646</h5>
+                            <h5 class="mb-0">+258844140106</h5>
+                            <h5 class="mb-0">+258879995244</h5>
+                            <h5 class="mb-0">+25886595646</h5>
                         </div>
                     </div>
                     <div class="bg-light rounded d-flex align-items-center p-5">
@@ -44,7 +47,7 @@
                         </div>
                         <div class="ms-4">
                             <p class="mb-2">Envie um email</p>
-                            <h5 class="mb-0">info@example.com</h5>
+                            <h5 class="mb-0">mepinampula@gmail.com</h5>
                         </div>
                     </div>
                 </div>

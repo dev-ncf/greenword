@@ -27,8 +27,8 @@ class HomeController extends Controller
     public function index()
     {
        $consultas = Consulta::paginate(5);
-        $ultimasAtualizacoes = Agenda::where('tipo', 'Externa')->orderBy('id', 'desc')->paginate(3);
-        
+        $ultimasAtualizacoes = Agenda::where('tipo', '=','Externa')->where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
+
         // dd($agendas);
         return view('Admin.index',compact(['consultas','ultimasAtualizacoes']));
     }

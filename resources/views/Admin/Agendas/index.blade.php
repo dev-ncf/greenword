@@ -27,7 +27,7 @@
 
                         <td>{{ $agenda->email }}</td>
                         <td>{{ $agenda->contacto }}</td>
-                        <td>{{ $agenda->medico->nome }}</td>
+                        <td>{{ $agenda->medico ? $agenda->medico->nome : '' }}</td>
                         <td>{{ $agenda->data }}</td>
                         <td>{{ $agenda->hora }}</td>
 

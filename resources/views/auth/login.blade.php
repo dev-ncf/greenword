@@ -43,6 +43,7 @@
                 <input type="password" placeholder="Senha" class="input  @error('password-r') is-invalid @enderror"
                     name="password-r" required autocomplete="new-password" />
                 @error('password-r')
+                
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

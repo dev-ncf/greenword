@@ -14,7 +14,7 @@ class DoencasController extends Controller
      * Display a listing of the resource.
      */
     private function novasAgendas(){
-       return Agenda::where('tipo', 'Externa')->orderBy('id', 'desc')->paginate(3);
+       return Agenda::where('tipo', '=','Externa')->where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
     }
     public function index()
     {

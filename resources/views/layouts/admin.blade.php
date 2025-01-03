@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green World</title>
+    <title>CS-MEPI</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <link rel="stylesheet"
@@ -21,7 +21,7 @@
 
                 <div class="top">
                     <div class="logo">
-                        <h2 class="primary">Green <span class="danger">World</span></h2>
+                        <h2 class="primary">CS- <span class="danger">MEPI</span></h2>
                     </div>
                     <div class="close" id="close_btn">
                         <span class="material-symbols-sharp">
@@ -102,7 +102,7 @@
                         <div class="profile-photo">
                             <img src="{{ asset('img/1-intro-photo-final.webp') }}" id="profile-foto" alt="">
                             <div class="infom" id="inform" status ='closed'>
-                                <p> <b>Green World</b></p>
+                                <p> <b>MEPI</b></p>
                                 <p>Admin</p>
                                 <small class="text-muted"></small>
                             </div>
@@ -113,52 +113,55 @@
                 </div>
                 <!--end top-->
                 <!--stat ultimas actualizacoes-->
-                <div class="ultimas_actualizacoes">
-                    <h2>Ultimas actualizacoes</h2>
-                    <div class="actualizacoes">
-                        @foreach ($ultimasAtualizacoes as $agenda)
-                            @if ($agenda->estado === '0')
-                                <div class="actualizacao">
-                                    <div class="profile-photo">
-                                        <img src="{{ asset('img/1-intro-photo-final.webp') }}" alt="">
-                                    </div>
-                                    <div class="message">
-                                        @if ($agenda->estado == '0')
-                                            <a href="{{ route('show-agendas', $agenda->id) }}"><b><span
-                                                        class="text-primary">Centro</span> Recebeu uma nova
-                                                    solicitacao de agenda de consulta</b></a>
-                                        @else
-                                            <a href="{{ route('show-agendas', $agenda->id) }}"><span
-                                                    class="text-primary">Centro</span> Recebeu uma nova
-                                                solicitacao de agenda de consulta</a>
-                                        @endif
-                                    </div>
-                                </div>
-                            @endif
-                            @if ($agenda->estado === '1')
-                                <div class="actualizacao">
-                                    <div class="profile-photo">
-                                        <img src="{{ asset('img/1-intro-photo-final.webp') }}" alt="">
-                                    </div>
-                                    <div class="message">
-                                        @if ($agenda->estado == '0')
-                                            <a href="{{ route('show-agendas', $agenda->id) }}"><b><span
-                                                        class="text-primary">Centro</span> Recebeu uma nova
-                                                    solicitacao de agenda de consulta</b></a>
-                                        @else
-                                            <a href="{{ route('show-agendas', $agenda->id) }}"><span
-                                                    class="text-primary">Centro</span> Recebeu uma nova
-                                                solicitacao de agenda de consulta</a>
-                                        @endif
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
+                @if ($ultimasAtualizacoes->count() >= 1)
 
+                    <div class="ultimas_actualizacoes">
+                        <h2>Ultimas actualizacoes</h2>
+                        <div class="actualizacoes">
+                            @foreach ($ultimasAtualizacoes as $agenda)
+                                {{-- @if ($agenda->estado === '0')
+                                <div class="actualizacao">
+                                    <div class="profile-photo">
+                                        <img src="{{ asset('img/1-intro-photo-final.webp') }}" alt="">
+                                    </div>
+                                    <div class="message">
+                                        @if ($agenda->estado == '0')
+                                            <a href="{{ route('show-agendas', $agenda->id) }}"><b><span
+                                                        class="text-primary">Centro</span> Recebeu uma nova
+                                                    solicitacao de agenda de consulta</b></a>
+                                        @else
+                                            <a href="{{ route('show-agendas', $agenda->id) }}"><span
+                                                    class="text-primary">Centro</span> Recebeu uma nova
+                                                solicitacao de agenda de consulta</a>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endif --}}
+                                @if ($agenda->estado === '0')
+                                    <div class="actualizacao">
+                                        <div class="profile-photo">
+                                            <img src="{{ asset('img/1-intro-photo-final.webp') }}" alt="">
+                                        </div>
+                                        <div class="message">
+                                            @if ($agenda->estado == '0')
+                                                <a href="{{ route('show-agendas', $agenda->id) }}"><b><span
+                                                            class="text-primary">Centro</span> Recebeu uma nova
+                                                        solicitacao de agenda de consulta</b></a>
+                                            @else
+                                                <a href="{{ route('show-agendas', $agenda->id) }}"><span
+                                                        class="text-primary">Centro</span> Recebeu uma nova
+                                                    solicitacao de agenda de consulta</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+
+
+                        </div>
 
                     </div>
-
-                </div>
+                @endif
                 <!--end ultimas actualizacoes-->
                 <!--start analise consultas-->
                 {{-- <div class="analise_consultas">
@@ -190,13 +193,13 @@
 
         </div>
     @else
-     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
-    <script>
-        alert('Ainda nao tens acesso a login! Entre em contacto com o administrador!')
-        document.getElementById('logout-form').submit();
-    </script>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        <script>
+            alert('Ainda nao tens acesso a login! Entre em contacto com o administrador!')
+            document.getElementById('logout-form').submit();
+        </script>
 
     @endif
 

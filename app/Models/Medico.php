@@ -19,4 +19,7 @@ class Medico extends Model
     public function agendas(){
         return $this->hasMany(Agenda::class);
     }
+    public function consultas(){
+        return $this->hasMany(Consulta::class);
+    }
 }
