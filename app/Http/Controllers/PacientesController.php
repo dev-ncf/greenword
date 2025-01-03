@@ -86,7 +86,8 @@ class PacientesController extends Controller
     {
         //
         $ultimasAtualizacoes = $this->novasAgendas();
-        return view('Admin.Pacientes.show',compact(['paciente','ultimasAtualizacoes']));
+        $proximaAgenda = Agenda::where('paciente_id','=',$paciente->id)->where('data','>',date('Y-m-d'))->first();
+        return view('Admin.Pacientes.show',compact(['paciente','ultimasAtualizacoes','proximaAgenda']));
     }
 
     /**

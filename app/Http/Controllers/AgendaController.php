@@ -115,6 +115,7 @@ class AgendaController extends Controller
         //
         $agenda->update(['estado'=>'1']);
          $ultimasAtualizacoes = $this->novasAgendas();
+         
         return view('Admin.Agendas.show',compact(['agenda','ultimasAtualizacoes']));
     }
 

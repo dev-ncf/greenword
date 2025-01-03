@@ -45,7 +45,7 @@
                         <h3>Pacientes</h3>
                     </a>
                     <a href="{{ route('consultas') }}"
-                        class="{{ Route::is('consultas') || Route::is('add-consulta') ? 'active' : '' }}">
+                        class="{{ Route::is('consultas') || Route::is('add-consulta') || Route::is('show-consulta') ? 'active' : '' }}">
                         <span class="material-symbols-sharp">medical_services</span>
                         <h3>Consultas</h3>
                     </a>

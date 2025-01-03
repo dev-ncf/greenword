@@ -111,7 +111,7 @@ class ConsultasController extends Controller
     {
         //
           $ultimasAtualizacoes = $this->novasAgendas();
-          $proximaAgenda = Agenda::where('paciente_id','=',$consulta->paciente_id)->where('estado','=','0')->first();
+          $proximaAgenda = Agenda::where('paciente_id','=',$consulta->paciente_id)->where('data','>',date('Y-m-d'))->first();
         return view('Admin.Consultas.show',compact(['consulta','ultimasAtualizacoes','proximaAgenda']));
     }
     public function estado(Consulta $consulta)

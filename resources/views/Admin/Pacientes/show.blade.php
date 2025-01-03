@@ -25,10 +25,15 @@
                 <div>
                     <h2>Ultimas consultas</h2>
                     @foreach ($paciente->consultas as $consulta)
-                        <a href="{{ route('consultas', $consulta->data_consulta) }}">{{ $consulta->data_consulta }}</a>
+                        <p> <a href="{{ route('show-consulta', $consulta->id) }}">{{ $consulta->data_consulta }}</a>
+                        </p>
                     @endforeach
-                    <h2>Proxima Consulta</h2>
-                    <p>{{ date('d/m/Y H:m') }}</p>
+                    @if ($proximaAgenda)
+                        <h2>Proxima Consulta</h2>
+                        <p><a
+                                href="{{ route('show-agendas', $proximaAgenda->id) }}">{{ $proximaAgenda->data . ' ' . $proximaAgenda->hora }}</a>
+                        </p>
+                    @endif
 
                 </div>
 
