@@ -14,6 +14,7 @@
                     <th>Nome</th>
                     <th>email</th>
                     <th>Contacto</th>
+                    <th>Especialidade</th>
                     <th>Acção</th>
                 </tr>
             </thead>
@@ -23,14 +24,14 @@
                         <td>{{ $medico->nome }}</td>
                         <td>{{ $medico->email }}</td>
                         <td>{{ $medico->contacto }}</td>
+                        <td>{{ $medico->especialidade }}</td>
                         <td class="actions">
-                            <a href=""><span class="material-symbols-sharp show">visibility</span></a>
-                            <a href=""><span class="material-symbols-sharp edit">edit</span></a>
+                            <a href="{{ route('edit-medicos', $medico->id) }}"><span
+                                    class="material-symbols-sharp edit">edit</span></a>
                             <a href="javascript:;" id="delete-{{ $medico->id }}" rota="medicos/destroy"
                                 onclick="return confirmDeletion(event)" class="btn btn-sm bg-danger"
                                 dado='{{ $medico->id }}'><span class="material-symbols-sharp delete">delete</span></a>
                         </td>
-
                     </tr>
                 @endforeach
 
@@ -51,12 +52,12 @@
             <div class="modal-main">
                 <div class="head">
                     <button id="btn-pesquisar" class="pesquisar active">Pesquisar</button>
-                    <button id="btn-filtrar" class="filtrar">Filtrar</button>
+
                 </div>
                 <div class="content">
-                    <div class="content-s">
+                    <div class="content-s" data-medicos="{{ $todosMedicos }}">
                         <div class="search">
-                            <input type="text" class="input" placeholder="Pesquise por: nome, doença, estado, ...">
+                            <input type="text" class="input" id="search-input-c" placeholder="Pesquise por: nome">
                             <span class="material-symbols-sharp">search</span>
                         </div>
                         <div class="results">
@@ -69,48 +70,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="text-align: center; background-color: blanchedalmond">
-                                            <td><a href="">Ntwali Chance Filme</a></td>
-                                            <td>842195299</td>
-
-                                        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="content-f">
-                        <div class="filtrar">
-                            <select name="" id="">
-                                <option value="">Filtrar por doença</option>
-                            </select>
-                            <select name="" id="">
-                                <option value="">Filtrar por genero</option>
-                            </select>
-                            <select name="" id="">
-                                <option value="">Filtrar por doença</option>
-                            </select>
-                        </div>
-                        <div class="results">
-                            <div class="item">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Contacto</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="text-align: center; background-color: blanchedalmond">
-                                            <td><a href="">Ntwali Chance Filme</a></td>
-                                            <td>842195299</td>
 
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -123,4 +89,5 @@
     @endif
     @include('Admin.delete')
     <script src="{{ asset('js/pacientes.js') }}"></script>
+    <script src="{{ asset('js/search-medicos.js') }}"></script>
 @endsection

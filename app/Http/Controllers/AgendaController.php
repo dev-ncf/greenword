@@ -8,6 +8,8 @@ use App\Models\Paciente;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Mail\EnviarEmail;
+use Illuminate\Support\Facades\Mail;
 
 class AgendaController extends Controller
 {
@@ -17,6 +19,18 @@ class AgendaController extends Controller
       private function novasAgendas(){
        return Agenda::where('tipo', '=','Externa')->where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
     }
+
+
+public function enviarEmail($dados=null,$destination = null)
+{
+
+
+    Mail::to($destination)->send(new EnviarEmail($dados));
+
+
+    return 'Email enviado com sucesso!';
+}
+
     public function index()
     {
         //
@@ -95,9 +109,19 @@ class AgendaController extends Controller
                  $dados['estado']='0';
             }
 
-            Agenda::create($dados);
+           $agenda =  Agenda::create($dados);
             DB::commit();
-            return back()->with(['success'=>'Agenda guardada com sucesso! A recepcionista entrará em contacto em breve, aguarde porfavor!']);
+            if($agenda && $agenda->email!=null){
+
+                $dados = [
+                    'nome' => $agenda->paciente,
+                    'mensagem' => 'Gostaríamos de informar que recebemos sua solicitação de agendamento e estamos verificando a disponibilidade em nossa agenda. Assim que o horário for confirmado, entraremos em contato para validar a data e o horário.
+                    '
+                ];
+
+                $this->enviarEmail($dados,$agenda->email);
+            }
+            return back()->with(['success'=>'Agenda guardada com sucesso! Verifique seu email que a recepcionista entrará em contacto em breve, aguarde porfavor!']);
 
         } catch (\Throwable $th) {
             //throw $th;
@@ -115,7 +139,7 @@ class AgendaController extends Controller
         //
         $agenda->update(['estado'=>'1']);
          $ultimasAtualizacoes = $this->novasAgendas();
-         
+
         return view('Admin.Agendas.show',compact(['agenda','ultimasAtualizacoes']));
     }
 

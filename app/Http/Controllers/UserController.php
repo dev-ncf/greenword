@@ -84,17 +84,49 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
         //
+        $ultimasAtualizacoes = $this->novasAgendas();
+        return view('Admin.Usuarios.edit',compact(['ultimasAtualizacoes','user']));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
         //
+         $validatedDatas = $request->validate([
+            'name'=>'required|min:3|max:50',
+            'email'=>'required|email|unique:users,email',
+            'nivel'=>'required|max:1'
+
+        ],[
+
+            'name.required'=>'O nome é obrigatório',
+            'email.required'=>'O email é obrigatório',
+            'nivel.required'=>'O nivel é obrigatório',
+            'nivel.max'=>'O nivel deve ter no maximo 1 caratere!',
+            'name.max'=>'O nome deve ter no maximo 50 carateres!',
+            'name.min'=>'O nome deve ter no minimo 3 carateres!',
+            'email.email'=>'forneca um email válido!',
+            'email.unique'=>'o email ja existe no nosso banco de dados!',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $validatedDatas['password']=bcrypt('1234');
+            $user->update($validatedDatas);
+            DB::commit();
+            return back()->with(['success'=>'Usuario actualizado com sucesso!']);
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 
     /**

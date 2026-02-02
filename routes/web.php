@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MedicosController;
 use App\Http\Controllers\PacientesController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DiagnosticoController;
 use App\Models\Medico;
 use App\Models\Paciente;
 use Illuminate\Support\Facades\Route;
@@ -52,7 +53,7 @@ Route::put('/pacientes/update/{paciente}', [PacientesController::class, 'update'
 Route::delete('/pacientes/destroy/{paciente}', [PacientesController::class, 'destroy'])->name('destroy-pacientes');
 
 Route::get('/consultas/{data?}', [ConsultasController::class, 'index'])->name('consultas');
-Route::get('/consulta/add',[ConsultasController::class, 'create'])->name('add-consulta');
+Route::get('/consultas/add/{paciente?}',[ConsultasController::class, 'create'])->name('add-consulta');
 Route::post('/consultas/store', [ConsultasController::class, 'store'])->name('store-consultas');
 Route::get('/consultas/show/{consulta}', [ConsultasController::class, 'show'])->name('show-consulta');
 Route::get('/consultas/estado/{consulta}', [ConsultasController::class, 'estado'])->name('estado-consultas');
@@ -62,12 +63,19 @@ Route::delete('/consultas/destroy/{consulta}', [ConsultasController::class, 'des
 Route::get('/medicos', [MedicosController::class, 'index'])->name('medicos');
 Route::get('/medicos/add', [MedicosController::class, 'create'])->name('add-medicos');
 Route::post('/medicos/store', [MedicosController::class, 'store'])->name('store-medicos');
+Route::get('/medicos/edit/{medico}', [MedicosController::class, 'edit'])->name('edit-medicos');
+Route::put('/medicos/update/{medico}', [MedicosController::class, 'update'])->name('update-medicos');
 Route::delete('/medicos/destroy/{medico}', [MedicosController::class, 'destroy'])->name('destroy-medicos');
 
-Route::get('/doencas', [DoencasController::class, 'index'])->name('doencas');
-Route::get('/doencas/add', [DoencasController::class, 'create'])->name('add-doencas');
-Route::post('/doencas/store', [DoencasController::class, 'store'])->name('store-doencas');
-Route::delete('/doencas/destroy/{doenca}', [DoencasController::class, 'destroy'])->name('destroy-doencas');
+Route::prefix('/doencas')->group(function () {
+Route::get('/', [DoencasController::class, 'index'])->name('doencas');
+Route::get('/add', [DoencasController::class, 'create'])->name('add-doencas');
+Route::get('/show/{doenca}', [DoencasController::class, 'show'])->name('show-doenca');
+Route::get('/edit/{doenca}', [DoencasController::class, 'edit'])->name('edit-doenca');
+Route::put('/update/{doenca}', [DoencasController::class, 'update'])->name('update-doenca');
+Route::post('/store', [DoencasController::class, 'store'])->name('store-doencas');
+Route::delete('/destroy/{doenca}', [DoencasController::class, 'destroy'])->name('destroy-doencas');
+});
 
 Route::get('/agendas', [AgendaController::class, 'index'])->name('agendas');
 Route::get('/agendas/add', [AgendaController::class, 'create'])->name('add-agendas');
@@ -80,6 +88,10 @@ Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios');
 Route::get('/usuarios/add', [UserController::class, 'create'])->name('add-usuarios');
 Route::post('/usuarios/store', [UserController::class, 'store'])->name('store-usuarios');
 Route::get('/usuarios/edit/{user}', [UserController::class, 'edit'])->name('edit-usuarios');
-Route::get('/usuarios/update/{user}', [UserController::class, 'update'])->name('upade-usuarios');
+Route::put('/usuarios/update/{user}', [UserController::class, 'update'])->name('update-usuarios');
 Route::delete('/usuarios/destroy/{user}', [UserController::class, 'destroy'])->name('delete-usuarios');
 Route::get('/usuarios/show/{user}', [UserController::class, 'show'])->name('show-usuarios');
+
+
+Route::post('/diagnostico', [DiagnosticoController::class, 'store'])->name('diagnostico');
+Route::get('/diagnostico/{diagnostico}', [DiagnosticoController::class, 'destroy'])->name('diagnostico-delete');

@@ -5,7 +5,6 @@
             <h1>Lista de Consultas</h1>
             <div class="right">
                 <a class="search" id="pesquisar"><span class="material-symbols-sharp">search</span></a>
-                <a href="{{ route('add-consulta') }}"><span class="material-symbols-sharp">add </span>Adicionar</a>
             </div>
         </div>
         <table>

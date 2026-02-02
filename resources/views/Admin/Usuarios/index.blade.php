@@ -26,8 +26,7 @@
                         <td>{{ $usuario->email }}</td>
                         <td>{{ $usuario->nivel }}</td>
                         <td class="actions">
-                            <a href="{{ route('show-usuarios', $usuario->id) }}"><span
-                                    class="material-symbols-sharp show">visibility</span></a>
+
                             <a href="{{ route('edit-usuarios', $usuario->id) }}"><span
                                     class="material-symbols-sharp edit">edit</span></a>
                             <a href="javascript:;" id="delete-{{ $usuario->id }}" rota="usuarios/destroy"

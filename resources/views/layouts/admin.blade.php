@@ -1,221 +1,208 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-pt" class="light"> <!-- Classe 'dark' alterna o tema -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS-MEPI</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <title>SiGEH - Dashboard</title>
+    
+    <!-- Tailwind CDN (Para produção, use o compilado) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,400,0,0" />
-
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        /* Esconder scrollbar padrão mantendo funcionalidade */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Variáveis de cores originais adaptadas */
+        :root {
+            --primary: #41f1b6;
+            --danger: #ff7782;
+            --success: #7380ec;
+            --dark-variant: #677483;
+            --bg-color: #f6f6f9;
+        }
+        .dark {
+            --bg-color: #181a1e;
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg-[#f6f6f9] dark:bg-[#181a1e] text-[#363949] dark:text-[#edeffd] antialiased overflow-hidden">
+
     @if (auth()->check() && auth()->user()->nivel == 'A')
-        <!-- Conteúdo para administradores -->
-        <div class="container">
-            <!--aside section start-->
-            <aside>
-
-                <div class="top">
-                    <div class="logo">
-                        <h2 class="primary">CS- <span class="danger">MEPI</span></h2>
-                    </div>
-                    <div class="close" id="close_btn">
-                        <span class="material-symbols-sharp">
-                            close
-                        </span>
-                    </div>
+    <div class="flex h-screen overflow-hidden">
+        
+        <!-- ================= SIDEBAR FIXA ================= -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-[#202528] transition-transform duration-300 transform -translate-x-full lg:translate-x-0 border-r border-gray-200 dark:border-gray-800">
+            <div class="flex flex-col h-full">
+                <!-- Logo -->
+                <div class="flex items-center justify-between h-20 px-8">
+                    <h2 class="text-2xl font-extrabold tracking-tight text-[#41f1b6]">
+                        SiGEH<span class="text-[#ff7782]">.</span>
+                    </h2>
+                    <button onclick="toggleSidebar()" class="lg:hidden text-[#ff7782]">
+                        <span class="material-symbols-sharp">close</span>
+                    </button>
                 </div>
-                <div class="sidebar">
-                    <a href="{{ route('dashboard') }}" class="  {{ Route::is('dashboard') ? 'active' : '' }}">
+
+                <!-- Menu Nav -->
+                <nav class="flex-1 px-4 space-y-2 overflow-y-auto hide-scrollbar">
+                    @php $route = Route::currentRouteName(); @endphp
+                    
+                    <a href="{{ route('dashboard') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ $route == 'dashboard' ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
                         <span class="material-symbols-sharp">grid_view</span>
-                        <h3>Dashboard</h3>
+                        <span class="font-medium">Dashboard</span>
                     </a>
-                    <a href="{{ route('agendas') }} "
-                        class="{{ Route::is('agendas') || Route::is('add-agendas') || Route::is('edit-agendas') || Route::is('show-agendas') ? 'active' : '' }}">
-                        <span class="material-symbols-sharp">book_online</span>
-                        <h3>Agendas</h3>
-                    </a>
-                    <a href="{{ route('pacientes') }} "
-                        class="{{ Route::is('pacientes') || Route::is('add-pacientes') || Route::is('edit-pacientes') || Route::is('show-pacientes') ? 'active' : '' }}">
+
+                    <a href="{{ route('pacientes') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'pacientes') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
                         <span class="material-symbols-sharp">personal_injury</span>
-                        <h3>Pacientes</h3>
+                        <span class="font-medium">Pacientes</span>
                     </a>
-                    <a href="{{ route('consultas') }}"
-                        class="{{ Route::is('consultas') || Route::is('add-consulta') || Route::is('show-consulta') ? 'active' : '' }}">
+
+                    <a href="{{ route('consultas') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ request()->routeIs('consultas','add-consulta','show-consulta')? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
                         <span class="material-symbols-sharp">medical_services</span>
-                        <h3>Consultas</h3>
+                        <span class="font-medium">Triagem</span>
                     </a>
-                    <a href="{{ route('medicos') }}"
-                        class="{{ Route::is('medicos') || Route::is('add-medicos') ? 'active' : '' }}">
+
+                    <a href="{{ route('medicos') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'medicos') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
                         <span class="material-symbols-sharp">stethoscope</span>
-                        <h3>Medicos</h3>
+                        <span class="font-medium">Médicos</span>
                     </a>
-                    <a href="{{ route('doencas') }}"
-                        class="{{ Route::is('doencas') || Route::is('add-doencas') ? 'active' : '' }}">
-                        <span class="material-symbols-sharp">medical_information</span>
-                        <h3>Doenças</h3>
-                    </a>
-                    <a href="{{ route('usuarios') }}"
-                        class="{{ Route::is('usuarios') || Route::is('add-usuarios') ? 'active' : '' }}">
+
+                    <a href="{{ route('usuarios') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'usuarios') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
                         <span class="material-symbols-sharp">group</span>
-                        <h3>Usuários</h3>
+                        <span class="font-medium">Usuários</span>
                     </a>
-                    <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                </nav>
+
+                <!-- Logout -->
+                <div class="p-4 border-t border-gray-100 dark:border-gray-800">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                       class="flex items-center gap-4 px-4 py-3 text-[#7d8da1] hover:text-[#ff7782] transition-colors">
                         <span class="material-symbols-sharp">logout</span>
-                        <h3>Logout</h3>
+                        <span class="font-medium">Sair</span>
                     </a>
-
                 </div>
-            </aside>
-            <!--aside section end-->
-            <!--main section start-->
+            </div>
+        </aside>
 
-            <main>
-                <H1>Dashbord</H1>
-                <form class="date" action="{{ route('pacientes') }}">
-                    <input type="text" placeholder="Digite nome ou contacto" name="search">
-                    <button style="background-color: transparent" id="btn-seach"
-                        class="material-symbols-sharp ">search</button>
-                </form>
-                @yield('content')
-            </main>
-            <!--main section end-->
-            <!--right section start-->
-            <div class="right">
-                <div class="top">
-                    <button id="menu_bar">
+        <!-- ================= CONTEÚDO À DIREITA ================= -->
+        <div class="flex flex-col flex-1 w-full lg:pl-64">
+            
+            <!-- HEADER FIXO -->
+            <header class="h-20 bg-white/80 dark:bg-[#202528]/80 backdrop-blur-md sticky top-0 z-40 border-b border-gray-200 dark:border-gray-800 px-4 lg:px-12 flex items-center justify-between">
+                <!-- Left: Burger & Title -->
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
                         <span class="material-symbols-sharp">menu</span>
                     </button>
-                    <div class="theme-toggler">
-                        <span class="material-symbols-sharp active">light_mode</span>
-                        <span class="material-symbols-sharp">dark_mode</span>
-                    </div>
-                    <div class="profile">
-
-
-                        <div class="profile-photo">
-                            <img src="{{ asset('img/1-intro-photo-final.webp') }}" id="profile-foto" alt="">
-                            <div class="infom" id="inform" status ='closed'>
-                                <p> <b>MEPI</b></p>
-                                <p>Admin</p>
-                                <small class="text-muted"></small>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-                <!--end top-->
-                <!--stat ultimas actualizacoes-->
-                @if ($ultimasAtualizacoes->count() >= 1)
-
-                    <div class="ultimas_actualizacoes">
-                        <h2>Ultimas actualizacoes</h2>
-                        <div class="actualizacoes">
-                            @foreach ($ultimasAtualizacoes as $agenda)
-                                {{-- @if ($agenda->estado === '0')
-                                <div class="actualizacao">
-                                    <div class="profile-photo">
-                                        <img src="{{ asset('img/1-intro-photo-final.webp') }}" alt="">
-                                    </div>
-                                    <div class="message">
-                                        @if ($agenda->estado == '0')
-                                            <a href="{{ route('show-agendas', $agenda->id) }}"><b><span
-                                                        class="text-primary">Centro</span> Recebeu uma nova
-                                                    solicitacao de agenda de consulta</b></a>
-                                        @else
-                                            <a href="{{ route('show-agendas', $agenda->id) }}"><span
-                                                    class="text-primary">Centro</span> Recebeu uma nova
-                                                solicitacao de agenda de consulta</a>
-                                        @endif
-                                    </div>
-                                </div>
-                            @endif --}}
-                                @if ($agenda->estado === '0')
-                                    <div class="actualizacao">
-                                        <div class="profile-photo">
-                                            <img src="{{ asset('img/1-intro-photo-final.webp') }}" alt="">
-                                        </div>
-                                        <div class="message">
-                                            @if ($agenda->estado == '0')
-                                                <a href="{{ route('show-agendas', $agenda->id) }}"><b><span
-                                                            class="text-primary">Centro</span> Recebeu uma nova
-                                                        solicitacao de agenda de consulta</b></a>
-                                            @else
-                                                <a href="{{ route('show-agendas', $agenda->id) }}"><span
-                                                        class="text-primary">Centro</span> Recebeu uma nova
-                                                    solicitacao de agenda de consulta</a>
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endif
-                            @endforeach
-
-
-                        </div>
-
-                    </div>
-                @endif
-                <!--end ultimas actualizacoes-->
-                <!--start analise consultas-->
-                {{-- <div class="analise_consultas">
-                <h2>analise de consultas</h2>
-                <div class="item onlion">
-                    <div class="icon">
-                        <span class="material-symbols-sharp">medical_information</span>
-                    </div>
-                    <div class="right_text">
-                        <div class="info">
-                            <h3>Diabete</h3>
-                            <small>Ultima consulta 2 meses</small>
-                        </div>
-                        <h5 class="danger">18%</h5>
-                        <h3>150</h3>
-                    </div>
-                </div>
-            </div> --}}
-                <!--end analise consultas-->
-                {{-- <div class="item add_pacientes">
-                <div>
-                    <span class="material-symbols-sharp">add</span>
+                    <h1 class="text-xl font-bold hidden md:block">Banco de Socorro</h1>
                 </div>
 
-            </div> --}}
-            </div>
+                <!-- Right: Theme, Search, Profile -->
+                <div class="flex items-center gap-4 md:gap-8">
+                    <!-- Barra de Busca (Mini) -->
+                    <form action="{{ route('pacientes') }}" class="hidden sm:flex items-center bg-gray-100 dark:bg-[#181a1e] rounded-full px-4 py-1.5 shadow-inner">
+                        <input type="text" name="search" placeholder="Buscar..." class="bg-transparent border-none focus:ring-0 text-sm w-32 md:w-48 outline-none">
+                        <button type="submit" class="material-symbols-sharp text-gray-400 text-lg">search</button>
+                    </form>
 
-            <!--right section end-->
+                    <!-- Theme Toggler -->
+                    <div onclick="toggleTheme()" class="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1 cursor-pointer w-14 h-8 relative items-center transition-all">
+                        <span class="material-symbols-sharp text-sm w-1/2 flex justify-center z-10">light_mode</span>
+                        <span class="material-symbols-sharp text-sm w-1/2 flex justify-center z-10">dark_mode</span>
+                        <div id="theme-ball" class="absolute bg-[#41f1b6] w-6 h-6 rounded-md shadow-sm transition-transform transform translate-x-0"></div>
+                    </div>
 
+                    <!-- Profile -->
+                    <div class="flex items-center gap-3 border-l pl-4 border-gray-200 dark:border-gray-700">
+                        <div class="text-right hidden sm:block leading-tight">
+                            <p class="text-sm font-bold">Admin</p>
+                            <small class="text-xs text-[#7d8da1]">Administrador</small>
+                        </div>
+                        <div class="w-10 h-10 rounded-full border-2 border-[#41f1b6] p-0.5">
+                            <img src="{{ asset('img/1-intro-photo-final.webp') }}" class="w-full h-full rounded-full object-cover shadow-sm">
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- MAIN CONTENT AREA -->
+            <main class="flex-1 overflow-y-auto p-4 lg:p-12 mt-0">
+                
+                <div class="grid grid-cols-1 xl:grid-cols- gap-8">
+                    
+                                         
+                        
+                        <!-- Onde entra o conteúdo das outras páginas -->
+                        <section class="min-h-[500px]">
+                            @yield('content')
+                        </section>
+                    
+
+                </div>
+            </main>
         </div>
+
+        <!-- Overlay for Mobile Sidebar -->
+        <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-300"></div>
+
+    </div>
     @else
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
         <script>
-            alert('Ainda nao tens acesso a login! Entre em contacto com o administrador!')
+            alert('Acesso negado! Contacte o administrador.');
             document.getElementById('logout-form').submit();
         </script>
-
     @endif
 
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
 
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-        @csrf
-    </form>
-    <script src="{{ asset('js/main.js') }}"></script>
-    <script src="{{ asset('js/error-success.js') }}"></script>
+    <!-- Scripts de Interatividade -->
     <script>
-        const btnSearch = document.getElementById('btn-seach')
+        // Menu Lateral Mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const isClosed = sidebar.classList.contains('-translate-x-full');
 
-        btnSearch.addEventListener("click", () => {
-            alert('Ola')
-        });
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.add('opacity-100'), 10);
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // Alternador de Tema
+        function toggleTheme() {
+            const html = document.documentElement;
+            const ball = document.getElementById('theme-ball');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                ball.style.transform = 'translateX(0)';
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                ball.style.transform = 'translateX(24px)';
+                localStorage.theme = 'dark';
+            }
+        }
+
+        // Carregar tema salvo
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('theme-ball').style.transform = 'translateX(24px)';
+        }
     </script>
 </body>
-
 </html>

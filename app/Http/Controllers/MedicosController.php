@@ -20,8 +20,9 @@ class MedicosController extends Controller
         //
         $query = Medico::query();
         $medicos =$query->paginate(7);
+        $todosMedicos = Medico::all();
         $ultimasAtualizacoes = $this->novasAgendas();
-        return view('Admin.Medicos.index',compact(['medicos','ultimasAtualizacoes']));
+        return view('Admin.Medicos.index',compact(['medicos','ultimasAtualizacoes','todosMedicos']));
     }
 
     /**
@@ -82,17 +83,54 @@ class MedicosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Medico $medico)
     {
         //
+        $ultimasAtualizacoes = $this->novasAgendas();
+        return view('Admin.Medicos.edit',compact(['medico','ultimasAtualizacoes']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Medico $medico)
     {
         //
+         $validatedDatas = $request->validate([
+            'nome'=>'required|min:3|max:255',
+            'especialidade'=>'required|min:3|max:60',
+            // 'foto-nova' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            if($request->hasFile('foto-nova')){
+                $arquivo = $request->file('foto-nova');
+                // Armazena o arquivo na pasta 'fotos' dentro do diretório de armazenamento padrão
+
+                // Define um nome único para o arquivo
+                $nomeArquivo = time() . '_' . $arquivo->getClientOriginalName();
+
+                // Armazena o arquivo na pasta 'fotos' dentro do diretório de armazenamento padrão
+                $caminho = $arquivo->storeAs('fotos', $nomeArquivo, 'public');
+
+                $validatedDatas['foto'] = $caminho;
+            }else{
+                $validatedDatas['foto'] = $medico->foto;
+            }
+            $validatedDatas['email']=$request->email;
+            $validatedDatas['contacto']=$request->contacto;
+            // dd($validatedDatas);
+
+            $medico->update($validatedDatas);
+            DB::commit();
+            return back()->with(['success'=>'Actualizacao feita com sucesso']);
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
+
     }
 
     /**

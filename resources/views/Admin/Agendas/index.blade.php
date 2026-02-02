@@ -68,7 +68,7 @@
                     {{-- <button id="btn-filtrar" class="filtrar">Filtrar</button> --}}
                 </div>
                 <div class="content">
-                    <div class="content-s" data-consultas="{{ $todasAgendas }}">
+                    <div class="content-s" data-agendas="{{ $todasAgendas }}">
                         <div class="search">
                             <input type="text" class="input" id="search-input-c" placeholder="Pesquise por: nome">
                             <span class="material-symbols-sharp">search</span>
@@ -93,45 +93,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="content-f">
-                        <div class="filtrar">
-                            <select name="" id="">
-                                <option value="">Filtrar por doença</option>
-                            </select>
-                            <select name="" id="">
-                                <option value="">Filtrar por genero</option>
-                            </select>
-                            <select name="" id="">
-                                <option value="">Filtrar por doença</option>
-                            </select>
-                        </div>
-                        <div class="results">
-                            <div class="item">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Genero</th>
-                                            <th>Idade</th>
-                                            <th>Doença</th>
-                                            <th>Nivel</th>
-                                            <th>Estado</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="text-align: center; background-color: blanchedalmond">
-                                            <td><a href="">Ntwali Chance Filme</a></td>
-                                            <td>Masculino</td>
-                                            <td>25</td>
-                                            <td>Malaria</td>
-                                            <td>Critico</td>
-                                            <td>Atednido</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div> --}}
+                    
                 </div>
             </div>
         </div>
@@ -144,5 +106,5 @@
     @endif
     @include('Admin.delete')
     <script src="{{ asset('js/pacientes.js') }}"></script>
-    <script src="{{ asset('js/search-consultas.js') }}"></script>
+    <script src="{{ asset('js/search-agendas.js') }}"></script>
 @endsection

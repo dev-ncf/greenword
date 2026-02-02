@@ -22,8 +22,10 @@
                         <td>{{ $doenca->nome }}</td>
                         <td>{{ $doenca->truncateWords($doenca->descricao, 8) }}</td>
                         <td class="actions">
-                            <a href=""><span class="material-symbols-sharp show">visibility</span></a>
-                            <a href=""><span class="material-symbols-sharp edit">edit</span></a>
+                            <a href="{{ route('show-doenca', $doenca->id) }}"><span
+                                    class="material-symbols-sharp show">visibility</span></a>
+                            <a href="{{ route('edit-doenca', $doenca->id) }}"><span
+                                    class="material-symbols-sharp edit">edit</span></a>
                             <a href="javascript:;" id="delete-{{ $doenca->id }}" rota="doencas/destroy"
                                 onclick="return confirmDeletion(event)" class="btn btn-sm bg-danger"
                                 dado='{{ $doenca->id }}'><span class="material-symbols-sharp delete">delete</span></a>
@@ -47,12 +49,13 @@
             <div class="modal-main">
                 <div class="head">
                     <button id="btn-pesquisar" class="pesquisar active">Pesquisar</button>
-                    <button id="btn-filtrar" class="filtrar">Filtrar</button>
+
                 </div>
                 <div class="content">
-                    <div class="content-s">
+                    <div class="content-s" data-doencas="{{ $todasDoencas }}">
                         <div class="search">
-                            <input type="text" class="input" placeholder="Pesquise por: nome, doença, estado, ...">
+                            <input type="text" class="input" id="search-input-c"
+                                placeholder="Pesquise por: nome ou descricao">
                             <span class="material-symbols-sharp">search</span>
                         </div>
                         <div class="results">
@@ -61,53 +64,20 @@
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
-                                            <th>Contacto</th>
+                                            <th>Descrição</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="text-align: center; background-color: blanchedalmond">
+                                        <tr style="text-align: center;">
                                             <td><a href="">Ntwali Chance Filme</a></td>
                                             <td>842195299</td>
-
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="content-f">
-                        <div class="filtrar">
-                            <select name="" id="">
-                                <option value="">Filtrar por doença</option>
-                            </select>
-                            <select name="" id="">
-                                <option value="">Filtrar por genero</option>
-                            </select>
-                            <select name="" id="">
-                                <option value="">Filtrar por doença</option>
-                            </select>
-                        </div>
-                        <div class="results">
-                            <div class="item">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Contacto</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="text-align: center; background-color: blanchedalmond">
-                                            <td><a href="">Ntwali Chance Filme</a></td>
-                                            <td>842195299</td>
 
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -120,4 +90,5 @@
     @endif
     @include('Admin.delete')
     <script src="{{ asset('js/pacientes.js') }}"></script>
+    <script src="{{ asset('js/search-doencas.js') }}"></script>
 @endsection

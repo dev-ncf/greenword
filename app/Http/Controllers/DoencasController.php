@@ -16,13 +16,16 @@ class DoencasController extends Controller
     private function novasAgendas(){
        return Agenda::where('tipo', '=','Externa')->where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
     }
+
+
     public function index()
     {
         //
         $query = Doenca::query();
         $doencas = $query->paginate(5);
         $ultimasAtualizacoes = $this->novasAgendas();
-        return view('Admin.Doencas.index',compact(['doencas','ultimasAtualizacoes']));
+        $todasDoencas = Doenca::all();
+        return view('Admin.Doencas.index',compact(['doencas','ultimasAtualizacoes','todasDoencas']));
     }
 
     /**
@@ -66,25 +69,48 @@ class DoencasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Doenca $doenca)
     {
         //
+        $ultimasAtualizacoes = $this->novasAgendas();
+        return view('Admin.Doencas.show',compact(['doenca','ultimasAtualizacoes']));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Doenca $doenca)
     {
         //
+        $ultimasAtualizacoes =$this->novasAgendas();
+        return view('Admin.Doencas.edit',compact(['ultimasAtualizacoes','doenca']));
+
     }
 
-    /**
+    /*0*
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Doenca $doenca)
     {
         //
+        $request->validate([
+            'nome' => 'required|string|min:3|max:50|unique:doencas,nome',
+        ],[
+            'nome.required' => 'O nome é obrigatório.',
+            'nome.unique' => 'O nome já existe.',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            //code...
+            $doenca->update($request->all());
+            DB::commit();
+            return back()->with(['success'=>'Actualização feita com sucesso!']);
+        } catch (Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return back()->withErrors(['error'=>$th->getMessage()]);
+        }
     }
 
     /**

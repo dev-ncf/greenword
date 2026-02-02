@@ -7,6 +7,7 @@ use App\Models\Consulta;
 use App\Models\Doenca;
 use App\Models\Medico;
 use App\Models\Paciente;
+use App\Models\Diagnostico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -36,14 +37,15 @@ class ConsultasController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Paciente $paciente)
     {
         //
         $pacientes = Paciente::all();
+        $diagnosticos = Diagnostico::where('paciente_id','=',$paciente->id)->get();
         $doencas = Doenca::all();
         $medicos = Medico::all();
         $ultimasAtualizacoes = $this->novasAgendas();
-        return view('Admin.Consultas.add',compact(['doencas','pacientes','ultimasAtualizacoes','medicos']));
+        return view('Admin.Consultas.add',compact(['doencas','paciente','ultimasAtualizacoes','medicos','diagnosticos']));
     }
 
     /**

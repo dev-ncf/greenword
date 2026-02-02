@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('consultas', function (Blueprint $table) {
-           $table->id();
+        Schema::create('diagnosticos', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
-            $table->date('data_consulta');
-            $table->text('nivel')->nullable();
-            $table->text('observacoes')->nullable();
-            $table->enum('estado',['Pendente','Atendido','Cancelada']);
+            $table->foreignId('doenca_id')->constrained('doencas')->onDelete('cascade');
+            $table->enum('estado',['0','1']);
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('consultas');
+        Schema::dropIfExists('diagnosticos');
     }
 };
