@@ -30,7 +30,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h3 class="text-[#7d8da1] text-sm font-bold uppercase tracking-wider">Total Atendimentos</h3>
-                    <h1 class="text-3xl font-black mt-1">1,540</h1>
+                    <h1 class="text-3xl font-black mt-1">{{$consultas->count()}}</h1>
                 </div>
                 <!-- Gráfico Radial Pequeno -->
                 <div id="chart-atendimentos" class="w-24"></div>
@@ -47,8 +47,8 @@
             </div>
             <div class="flex items-center justify-between">
                 <div>
-                    <h3 class="text-[#7d8da1] text-sm font-bold uppercase tracking-wider">Novos Pacientes</h3>
-                    <h1 class="text-3xl font-black mt-1">84</h1>
+                    <h3 class="text-[#7d8da1] text-sm font-bold uppercase tracking-wider"> Pacientes</h3>
+                    <h1 class="text-3xl font-black mt-1">{{ $pacientes->count() }}</h1>
                 </div>
                 <div id="chart-pacientes" class="w-24"></div>
             </div>
@@ -58,14 +58,14 @@
         <!-- Card: Taxa de Recuperação (ou outro dado) -->
         <div class="bg-white dark:bg-[#202528] p-6 rounded-[2rem] shadow-sm hover:shadow-xl transition-all border border-gray-50 dark:border-gray-800">
             <div class="flex items-center justify-between mb-4">
-                <div class="p-3 bg-red-100 dark:bg-red-900/30 rounded-2xl text-[#ff7782]">
-                    <span class="material-symbols-sharp">medical_services</span>
+                <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-[#778bff]">
+                    <span class="material-symbols-sharp">stethoscope</span>
                 </div>
             </div>
             <div class="flex items-center justify-between">
                 <div>
-                    <h3 class="text-[#7d8da1] text-sm font-bold uppercase tracking-wider">Casos Graves</h3>
-                    <h1 class="text-3xl font-black mt-1">12</h1>
+                    <h3 class="text-[#7d8da1] text-sm font-bold uppercase tracking-wider">Medicos</h3>
+                    <h1 class="text-3xl font-black mt-1">{{ $medicos->count() }}</h1>
                 </div>
                 <div id="chart-graves" class="w-24"></div>
             </div>

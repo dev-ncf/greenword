@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $medicos = Medico::all();
     $pacientes = Paciente::all();
-    return view('Home.index',compact(['medicos','pacientes']));
+    // return view('Home.index',compact(['medicos','pacientes']));
+    return redirect()->route('login');
 
 })->name('home');
 Route::get('home/sobre', function () {

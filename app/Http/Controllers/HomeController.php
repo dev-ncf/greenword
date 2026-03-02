@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Agenda;
 use App\Models\Consulta;
+use App\Models\Paciente;
+use App\Models\Medico;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,10 +29,12 @@ class HomeController extends Controller
     public function index()
     {
        $consultas = Consulta::paginate(5);
+       $pacientes = Paciente::all();
+       $medicos = Medico::all();
         $ultimasAtualizacoes = Agenda::where('tipo', '=','Externa')->where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
 
         // dd($agendas);
-        return view('Admin.index',compact(['consultas','ultimasAtualizacoes']));
+        return view('Admin.index',compact(['consultas','ultimasAtualizacoes','pacientes','medicos']));
     }
     public function sobre()
     {

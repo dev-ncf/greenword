@@ -5,6 +5,13 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
+
+                     @if ($errors->any())
+                        @include('Admin.error')
+                    @endif
+                    @if (session('success'))
+                        @include('Admin.success')
+                    @endif
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body">

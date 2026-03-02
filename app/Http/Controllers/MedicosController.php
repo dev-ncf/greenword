@@ -44,7 +44,9 @@ class MedicosController extends Controller
        $validatedDatas = $request->validate([
             'nome'=>'required|min:3|max:255',
             'especialidade'=>'required|min:3|max:60',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'contacto'=>'required|min:3|max:60',
+            'email'=>'required|email|min:3|max:255',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
 
         DB::beginTransaction();
@@ -64,7 +66,7 @@ class MedicosController extends Controller
 
             Medico::create($validatedDatas);
             DB::commit();
-            return back()->with(['success'=>'Registo feito com sucesso']);
+            return redirect()->route('medicos')->with(['success'=>'Registo feito com sucesso']);
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollBack();

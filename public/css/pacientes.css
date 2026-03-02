@@ -271,7 +271,7 @@ border-collapse: collapse;
     margin-top: 20px;
 
 }
-.filtrar select{
+.filtrar .select{
     border: 1px solid var(--clr-success);
     border-radius: 5px;
     padding: 8px;

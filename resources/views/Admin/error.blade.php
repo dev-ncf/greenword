@@ -18,7 +18,7 @@
             @endforeach
         </ul>
 
-        <button onclick="closeError()" style="background-color: #af4c4c; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.2s;">
+        <button class="button-erro" onclick="closeError()" style="background-color: #af4c4c; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.2s;">
             Tentar Novamente
         </button>
     </div>

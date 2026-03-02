@@ -67,9 +67,9 @@ class PacientesController extends Controller
     DB::beginTransaction();
         try {
 
-        Paciente::create($request->all());
+        $paciente=Paciente::create($request->all());
         DB::commit();
-        return back()->with(['success'=>'Cadastro feito com sucesso!']);
+        return redirect()->route('show-pacientes',$paciente->id)->with(['success'=>'Cadastro feito com sucesso!']);
 
         } catch (Throwable $th) {
             //throw $th;

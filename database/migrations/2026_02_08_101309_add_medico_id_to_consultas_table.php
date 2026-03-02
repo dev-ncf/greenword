@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('consulta_doencas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('consulta_id')->constrained('consultas')->onDelete('cascade');
-            $table->foreignId('doenca_id')->constrained('doencas')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('consultas', function (Blueprint $table) {
+            //
+          $table->unsignedBigInteger('medico_id')->after('id')->nullable()->constrained('medicos');
         });
     }
 
@@ -24,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('consulta_doencas');
+        Schema::table('consultas', function (Blueprint $table) {
+            //
+            $table->dropColumn('medico_id');
+        });
     }
 };

@@ -1,98 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <title>SiGEH - Login</title>
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+    {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> --}}
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> --}}
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+    @vite('resources/css/app.css')
 </head>
+<body class="bg-[#f6f6f9] text-[#363949]">
 
-<body>
-    {{-- @if ($errors->any())
-    <ul>
-        @foreach ($errors->all() as $e)
-        <li>{{$e}}</li>
-        @endforeach
-    </ul>
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <!-- Container Principal -->
+        <div class="max-w-[1000px] w-full bg-white rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[600px]">
+            
+            <!-- LADO ESQUERDO: Branding/Imagem (Oculto no Mobile) -->
+            <div class="hidden md:flex md:w-1/2 bg-gradient-to-br from-[#7380ec] to-[#41f1b6] p-12 flex-col justify-between relative overflow-hidden">
+                <!-- Círculos decorativos de fundo -->
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+                <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-black/10 rounded-full blur-3xl"></div>
 
-    @endif --}}
-    <div
-        class="container @error('name-r') right-panel-active @enderror @error('email-r') right-panel-active @enderror @error('password-r') right-panel-active @enderror @error('password_confirmation') right-panel-active @enderror  ">
-
-        <!-- Sign Up -->
-        <div class="container__form container--signup ">
-
-            <form action="{{ route('register') }}" class="form" id="form1" method="POST">
-                @csrf
-                <h2 class="form__title">Cadastro</h2>
-                <input type="text" placeholder="Nome" class="input  @error('name-r') is-invalid @enderror"
-                    name="name-r" value="{{ old('name-r') }}" required autocomplete="name" autofocus />
-                @error('name-r')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                <input type="email" placeholder="Email" class="input  @error('email-r') is-invalid @enderror"
-                    name="email-r" value="{{ old('email-r') }}" required autocomplete="email" />
-                @error('email-r')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                <input type="password" placeholder="Senha" class="input  @error('password-r') is-invalid @enderror"
-                    name="password-r" required autocomplete="new-password" />
-                @error('password-r')
-                
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                <input type="password" placeholder="Confirmar senha"
-                    class="input  @error('password_confirmation') is-invalid @enderror" name="password_confirmation"
-                    required autocomplete="new-password" />
-                @error('password_confirmation')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                <button type="submit" class="btn">Cadastrar</button>
-            </form>
-        </div>
-
-        <!-- Sign In -->
-        <div class="container__form container--signin">
-            <form action="{{ route('login') }}" class="form" id="form2" method="POST">
-                @csrf
-                <h2 class="form__title">Iniciar Sessão</h2>
-                <input type="email" placeholder="Email" class="input @error('email') is-invalid @enderror"
-                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus />
-                <input type="password" placeholder="Senha" class="input @error('password') is-invalid @enderror"
-                    name="password" required autocomplete="current-password" />
-                @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                <a href="#" class="link">Esqueceu senha?</a>
-                <button type="submit" class="btn">Iniciar Sessão</button>
-            </form>
-        </div>
-
-        <!-- Overlay -->
-        <div class="container__overlay">
-            <div class="overlay">
-                <div class="overlay__panel overlay--left">
-                    <button class="btn" id="signIn">Iniciar Sessão</button>
+                <div class="relative z-10">
+                    <h1 class="text-white text-4xl font-black leading-tight">
+                        Gestão Hospitalar <br>
+                        <span class="text-[#363949]">Inteligente e Humana.</span>
+                    </h1>
+                    <p class="text-white/80 mt-4 font-medium italic">
+                        "Tecnologia a favor da vida e da organização médica."
+                    </p>
                 </div>
-                <div class="overlay__panel overlay--right">
-                    <button class="btn" id="signUp">Cadastrar-se</button>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 text-white">
+                        <span class="material-symbols-sharp">verified_user</span>
+                        <span class="text-sm font-bold tracking-widest uppercase">Sistema Seguro SiGEH</span>
+                    </div>
                 </div>
             </div>
+
+            <!-- LADO DIREITO: Formulário de Login -->
+            <div class="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center">
+                
+                <!-- Logo -->
+                <div class="mb-10">
+                    <h2 class="text-3xl font-black text-[#363949]">
+                        SiGEH<span class="text-[#ff7782]">.</span>
+                    </h2>
+                    <p class="text-[#7d8da1] text-sm mt-2 font-medium">Faça login para gerir a sua unidade.</p>
+                </div>
+
+                <!-- Formulário -->
+                <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                    @csrf
+                    
+                    <!-- Campo Email/Username -->
+                    <div class="space-y-2">
+                        <label for="email" class="text-[11px] font-black uppercase tracking-widest text-[#7d8da1] ml-2">Email ou Utilizador</label>
+                        <div class="relative group">
+                            <span class="material-symbols-sharp absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#7380ec] transition-colors">person</span>
+                            <input type="email" name="email" id="email" required autofocus
+                                class="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl outline-none focus:ring-2 focus:ring-[#7380ec]/20 focus:border-[#7380ec] transition-all text-sm font-medium"
+                                placeholder="exemplo@sigeh.com">
+                        </div>
+                        @error('email')
+                            <span class="text-[10px] text-[#ff7782] font-bold ml-2">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Campo Senha -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center px-2">
+                            <label for="password" class="text-[11px] font-black uppercase tracking-widest text-[#7d8da1]">Palavra-passe</label>
+                            @if (Route::has('password.request'))
+                                <a href="{{ route('password.request') }}" class="text-[10px] font-bold text-[#7380ec] hover:underline">Esqueceu-se?</a>
+                            @endif
+                        </div>
+                        <div class="relative group">
+                            <span class="material-symbols-sharp absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#7380ec] transition-colors">lock</span>
+                            <input type="password" name="password" id="password" required
+                                class="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl outline-none focus:ring-2 focus:ring-[#7380ec]/20 focus:border-[#7380ec] transition-all text-sm font-medium"
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="flex items-center ml-2">
+                        <input type="checkbox" name="remember" id="remember" class="w-4 h-4 rounded border-gray-300 text-[#7380ec] focus:ring-[#7380ec]">
+                        <label for="remember" class="ml-2 text-xs font-bold text-[#7d8da1] cursor-pointer">Lembrar-me neste dispositivo</label>
+                    </div>
+
+                    <!-- Botão Entrar -->
+                    <button type="submit" 
+                        class="w-full py-4 bg-[#7380ec] hover:bg-[#5a65c1] text-white font-black rounded-2xl shadow-xl shadow-indigo-100 transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2">
+                        ENTRAR NO SISTEMA
+                        <span class="material-symbols-sharp">login</span>
+                    </button>
+                </form>
+
+                <!-- Footer do Login -->
+                <div class="mt-12 text-center">
+                    <p class="text-[10px] text-[#7d8da1] font-medium uppercase tracking-widest">
+                        &copy; {{ date('Y') }} SiGEH - Todos os direitos reservados
+                    </p>
+                </div>
+
+            </div>
         </div>
-
     </div>
-    <script src="{{ asset('js/login.js') }}"></script>
-</body>
 
+</body>
 </html>

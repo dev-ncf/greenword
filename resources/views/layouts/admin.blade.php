@@ -6,7 +6,7 @@
     <title>SiGEH - Dashboard</title>
     
     <!-- Tailwind CDN (Para produção, use o compilado) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -30,11 +30,12 @@
             --bg-color: #181a1e;
         }
     </style>
+    @vite('resources/css/app.css')
 </head>
 
 <body class="bg-[#f6f6f9] dark:bg-[#181a1e] text-[#363949] dark:text-[#edeffd] antialiased overflow-hidden">
 
-    @if (auth()->check() && auth()->user()->nivel == 'A')
+    
     <div class="flex h-screen overflow-hidden">
         
         <!-- ================= SIDEBAR FIXA ================= -->
@@ -58,7 +59,6 @@
                         <span class="material-symbols-sharp">grid_view</span>
                         <span class="font-medium">Dashboard</span>
                     </a>
-
                     <a href="{{ route('pacientes') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'pacientes') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
                         <span class="material-symbols-sharp">personal_injury</span>
                         <span class="font-medium">Pacientes</span>
@@ -68,10 +68,16 @@
                         <span class="material-symbols-sharp">medical_services</span>
                         <span class="font-medium">Triagem</span>
                     </a>
+              @if (auth()->check() && auth()->user()->nivel == 'A')
+                    
 
                     <a href="{{ route('medicos') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'medicos') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
                         <span class="material-symbols-sharp">stethoscope</span>
                         <span class="font-medium">Médicos</span>
+                    </a>
+                      <a href="{{ route('doencas') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ request()->routeIs('doencas','add-doenca','show-doenca')? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
+                       <span class="material-symbols-sharp">diagnosis</span>
+                        <span class="font-medium">Doencas</span>
                     </a>
 
                     <a href="{{ route('usuarios') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'usuarios') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
@@ -79,7 +85,8 @@
                         <span class="font-medium">Usuários</span>
                     </a>
                 </nav>
-
+ 
+             @endif
                 <!-- Logout -->
                 <div class="p-4 border-t border-gray-100 dark:border-gray-800">
                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
@@ -113,11 +120,11 @@
                     </form>
 
                     <!-- Theme Toggler -->
-                    <div onclick="toggleTheme()" class="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1 cursor-pointer w-14 h-8 relative items-center transition-all">
+                    {{-- <div onclick="toggleTheme()" class="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1 cursor-pointer w-14 h-8 relative items-center transition-all">
                         <span class="material-symbols-sharp text-sm w-1/2 flex justify-center z-10">light_mode</span>
                         <span class="material-symbols-sharp text-sm w-1/2 flex justify-center z-10">dark_mode</span>
                         <div id="theme-ball" class="absolute bg-[#41f1b6] w-6 h-6 rounded-md shadow-sm transition-transform transform translate-x-0"></div>
-                    </div>
+                    </div> --}}
 
                     <!-- Profile -->
                     <div class="flex items-center gap-3 border-l pl-4 border-gray-200 dark:border-gray-700">
@@ -153,13 +160,7 @@
         <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-300"></div>
 
     </div>
-    @else
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
-        <script>
-            alert('Acesso negado! Contacte o administrador.');
-            document.getElementById('logout-form').submit();
-        </script>
-    @endif
+  
 
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
 

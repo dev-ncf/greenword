@@ -56,7 +56,7 @@ class ConsultasController extends Controller
 
          $validatedData = $request->validate([
         'paciente_id' => 'required|exists:pacientes,id',
-        'doenca' => 'required|array|min:1',             //
+        'doenca' => 'nullable',             //
         'doenca.*' => 'exists:doencas,id',
         'data_consulta' => 'required|date',
         'nivel' => 'required|string',
@@ -86,12 +86,17 @@ class ConsultasController extends Controller
     ]);
 
     // Associar as doenças à consulta e ao paciente
-    foreach ($validatedData['doenca'] as $doencaId) {
-        // Relacionar doença com consulta
-        $consulta->doencas()->syncWithoutDetaching([$doencaId]);
+    $doe = $validatedData['doenca']??null;
 
-        // Relacionar doença com paciente
-        $paciente->doencas()->syncWithoutDetaching([$doencaId]);
+    if($doe){
+
+        foreach ($validatedData['doenca'] as $doencaId) {
+            // Relacionar doença com consulta
+            $consulta->doencas()->syncWithoutDetaching([$doencaId]);
+    
+            // Relacionar doença com paciente
+            $paciente->doencas()->syncWithoutDetaching([$doencaId]);
+        }
     }
     DB::commit();
     return back()->with(['success'=>'Consulta registrada com sucesso!']);

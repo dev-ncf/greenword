@@ -52,7 +52,7 @@ background-color: #77777721;
 
 
 
-button, .dot {
+.button-erro, .dot {
   cursor: pointer;
   background-color: red;
 }
