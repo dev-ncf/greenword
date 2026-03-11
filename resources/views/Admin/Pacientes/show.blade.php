@@ -8,11 +8,16 @@
             <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Ficha do Paciente</h1>
             <p class="text-sm text-gray-500">Gerencie as informações detalhadas e o histórico clínico.</p>
         </div>
-        
+        <!-- Substitua o link original por este botão -->
+        <button onclick="toggleModal('modalAgendamento')"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#73eca5] hover:bg-[#5ac18d] text-white font-semibold rounded-xl transition-all shadow-lg shadow-green-200 dark:shadow-none">
+            <span class="material-symbols-sharp">add</span>
+            Agendar
+        </button>
         <a href="{{route('add-consulta',$paciente->id)}}" 
            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#7380ec] hover:bg-[#5a65c1] text-white font-semibold rounded-xl transition-all shadow-lg shadow-indigo-200 dark:shadow-none">
             <span class="material-symbols-sharp">add</span>
-            Marcar Nova Consulta
+            Nova Consulta
         </a>
     </div>
 
@@ -140,6 +145,66 @@
         </div>
     </div>
 </div>
+<!-- Modal de Agendamento -->
+<div id="modalAgendamento" class="fixed inset-0 z-[999] hidden" role="dialog" aria-modal="true">
+    
+    <!-- 1. Fundo Escurecido (Overlay) - Ocupa a tela toda -->
+    <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity" onclick="toggleModal('modalAgendamento')"></div>
+
+    <!-- 2. Container do Conteúdo - Garante a centralização -->
+    <div class="fixed inset-0 z-[1000] flex items-center justify-center p-4 pointer-events-none">
+        
+        <!-- 3. O Card do Modal - pointer-events-auto para permitir cliques aqui -->
+        <div class="bg-white dark:bg-[#202528] w-full max-w-lg rounded-[2.5rem] shadow-2xl transform transition-all pointer-events-auto border border-gray-100 dark:border-gray-800 overflow-hidden">
+            
+            <div class="p-8">
+                <!-- Cabeçalho -->
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800 dark:text-white">Novo Agendamento</h3>
+                    <button type="button" onclick="toggleModal('modalAgendamento')" class="text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors">
+                        <span class="material-symbols-sharp">close</span>
+                    </button>
+                </div>
+
+                <!-- Formulário -->
+                <form action="{{ route('agendas.store') }}" method="POST" class="space-y-5">
+                    @csrf
+                    <input type="hidden" name="paciente_id" value="{{ $paciente->id }}">
+
+                    <!-- <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Data da Consulta</label>
+                        <input type="date" name="data" required
+                            class="w-full bg-gray-50 dark:bg-[#181a1e] border-none rounded-xl p-4 text-gray-700 dark:text-white focus:ring-2 focus:ring-[#7380ec]">
+                    </div> -->
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Prioridade</label>
+                        <input type="text" name="prioridade"
+                            class="w-full bg-gray-50 dark:bg-[#181a1e] border-none rounded-xl p-4 text-gray-700 dark:text-white focus:ring-2 focus:ring-[#7380ec]">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Motivo / Notas</label>
+                        <textarea name="descricao" rows="3" 
+                            class="w-full bg-gray-50 dark:bg-[#181a1e] border-none rounded-xl p-4 text-gray-700 dark:text-white focus:ring-2 focus:ring-[#7380ec]"
+                            placeholder="Ex: Consulta de rotina..."></textarea>
+                    </div>
+
+                    <div class="flex gap-3 mt-8">
+                        <button type="button" onclick="toggleModal('modalAgendamento')"
+                            class="flex-1 px-6 py-4 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-300 font-bold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+                            Cancelar
+                        </button>
+                        <button type="submit"
+                            class="flex-1 px-6 py-4 bg-[#7380ec] text-white font-bold rounded-xl shadow-lg shadow-indigo-200 dark:shadow-none hover:bg-[#5a65c1] transition-all">
+                            Confirmar Agendamento
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     // Se você tiver um input de data nesta tela no futuro (ex: em um modal), 
@@ -153,5 +218,25 @@
         const ano = hoje.getFullYear();
         dataInput.max = `${ano}-${mes}-${dia}`;
     }
+    function toggleModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal.classList.contains('hidden')) {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Previne scroll ao fundo
+    } else {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Fechar modal ao apertar ESC
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape") {
+            const modal = document.getElementById('modalAgendamento');
+            if (!modal.classList.contains('hidden')) {
+                toggleModal('modalAgendamento');
+            }
+        }
+    });
 </script>
 @endsection

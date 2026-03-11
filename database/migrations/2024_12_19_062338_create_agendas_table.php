@@ -13,15 +13,9 @@ return new class extends Migration
     {
         Schema::create('agendas', function (Blueprint $table) {
             $table->id();
-            $table->string('paciente',60);
-            $table->string('email',60)->nullable();
-            $table->string('contacto',60)->nullable();
-            $table->foreignId('medico_id')->nullable()->constrained();
             $table->foreignId('paciente_id')->nullable()->constrained();
-            $table->date('data');
-            $table->time('hora');
             $table->text('descricao')->nullable();
-            $table->enum('tipo',['Interna','Externa'])->nullable();
+            $table->string('prioridade')->nullable();
             $table->enum('estado',['0','1'])->nullable();
             $table->timestamps();
         });

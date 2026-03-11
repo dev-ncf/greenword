@@ -31,7 +31,7 @@ class HomeController extends Controller
        $consultas = Consulta::paginate(5);
        $pacientes = Paciente::all();
        $medicos = Medico::all();
-        $ultimasAtualizacoes = Agenda::where('tipo', '=','Externa')->where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
+        $ultimasAtualizacoes = Agenda::where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
 
         // dd($agendas);
         return view('Admin.index',compact(['consultas','ultimasAtualizacoes','pacientes','medicos']));

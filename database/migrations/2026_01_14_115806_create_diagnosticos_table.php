@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('diagnosticos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
+            $table->foreignId('consulta_id')->constrained('consultas')->onDelete('cascade');
             $table->foreignId('doenca_id')->constrained('doencas')->onDelete('cascade');
             $table->enum('estado',['0','1']);
             $table->timestamps();

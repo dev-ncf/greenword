@@ -8,14 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Diagnostico extends Model
 {
     use HasFactory;
-     protected $fillable=['paciente_id','doenca_id','estado'];
+     protected $fillable=['paciente_id','consulta_id','doenca_id','estado'];
 
     public function paciente()
     {
         return $this->belongsTo(Paciente::class);
     }
    
-
+    public function consulta()
+    {
+        return $this->belongsTo(Consulta::class);
+    }
+   
     public function doenca()
     {
         return $this->belongsTo(Doenca::class);

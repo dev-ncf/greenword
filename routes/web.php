@@ -53,6 +53,7 @@ Route::get('/pacientes/edit/{paciente}', [PacientesController::class, 'edit'])->
 Route::put('/pacientes/update/{paciente}', [PacientesController::class, 'update'])->name('update-pacientes');
 Route::delete('/pacientes/destroy/{paciente}', [PacientesController::class, 'destroy'])->name('destroy-pacientes');
 
+
 Route::get('/consultas/{data?}', [ConsultasController::class, 'index'])->name('consultas');
 Route::get('/consultas/add/{paciente?}',[ConsultasController::class, 'create'])->name('add-consulta');
 Route::post('/consultas/store', [ConsultasController::class, 'store'])->name('store-consultas');
@@ -80,7 +81,7 @@ Route::delete('/destroy/{doenca}', [DoencasController::class, 'destroy'])->name(
 
 Route::get('/agendas', [AgendaController::class, 'index'])->name('agendas');
 Route::get('/agendas/add', [AgendaController::class, 'create'])->name('add-agendas');
-Route::post('/agendas/store/{tipo}', [AgendaController::class, 'store'])->name('store-agendas');
+Route::post('/agendas/store', [AgendaController::class, 'store'])->name('agendas.store');
 Route::get('/agendas/show/{agenda}', [AgendaController::class, 'show'])->name('show-agendas');
 Route::delete('/agendas/destroy/{agenda}', [AgendaController::class, 'destroy'])->name('destroy-agendas');
 

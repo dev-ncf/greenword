@@ -169,9 +169,7 @@
     }
 </style>
 
-@if ($errors->any()) @include('Admin.error') @endif
-@if (session('success')) @include('Admin.success') @endif
-@include('Admin.delete')
+
 
 <script src="{{ asset('js/pacientes.js') }}"></script>
 <script src="{{ asset('js/search-consultas.js') }}"></script>

@@ -60,12 +60,7 @@
 
     <!-- Alertas -->
     <div class="fixed bottom-8 right-8 z-50">
-        @if ($errors->any())
-            @include('Admin.error')
-        @endif
-        @if (session('success'))
-            @include('Admin.success')
-        @endif
+        
     </div>
 
 </div>

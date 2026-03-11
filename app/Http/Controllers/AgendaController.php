@@ -17,7 +17,7 @@ class AgendaController extends Controller
      * Display a listing of the resource.
      */
       private function novasAgendas(){
-       return Agenda::where('tipo', '=','Externa')->where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
+       return Agenda::where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
     }
 
 
@@ -57,71 +57,29 @@ public function enviarEmail($dados=null,$destination = null)
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,$tipo)
+    public function store(Request $request,Paciente $paciente)
     {
         //
 
-        if($tipo=='Interna'){
+       
 
             $validatedData = $request->validate([
-                'paciente_id'    => 'required',
-                'medico_id'       => 'required',
-                'data'       => 'required',
-                'hora'       => 'required',
+                'paciente_id'    => 'exists:pacientes,id',
+                'descricao'       => 'nullable',
+                'prioridade'       => 'nullable',
                 // ... outras regras ...
             ]);
-        }
-        if($tipo=='Externa'){
-
-            $validatedData = $request->validate([
-                'paciente'    => 'required',
-                'medico_id'       => 'required',
-                'data'       => 'required',
-                'hora'       => 'required',
-                // ... outras regras ...
-            ]);
-        }
 
         DB::beginTransaction();
         try {
-             $dados = $request->all();
-            if($tipo=='Interna'){
-
-                $paciente = Paciente::findOrFail($validatedData['paciente_id']);
-                 $dados['paciente']=$paciente->nome.' '.$paciente->apelido;
-                 $dados['contacto']=$paciente->contacto;
-                 $dados['tipo']='Interna';
-                 $dados['estado']='1';
-            }
-            if($tipo=='Externa'){
-                 $paciente = Paciente::where('nome','like','%'.$dados['paciente'].'%')->where('apelido','like','%'.$dados['paciente'].'%')->first();
-                //  dd($paciente);
-                 if($paciente){
-                    $dados['paciente_id']=$paciente->id;
-                    $dados['paciente']=$paciente->nome.''.$paciente->apelido;
-
-                 }
-                   $dataFormatada = Carbon::createFromFormat('m/d/Y', $validatedData['data'])->format('Y-m-d');
-                   $horaFormatada  = Carbon::createFromFormat('h:i A', $validatedData['hora'])->format('H:i:s');
-                 $dados['data']=$dataFormatada;
-                 $dados['hora']=$horaFormatada;
-                 $dados['tipo']='Externa';
-                 $dados['estado']='0';
-            }
+             $dados = $validatedData;
+            
+            
 
            $agenda =  Agenda::create($dados);
             DB::commit();
-            if($agenda && $agenda->email!=null){
-
-                $dados = [
-                    'nome' => $agenda->paciente,
-                    'mensagem' => 'Gostaríamos de informar que recebemos sua solicitação de agendamento e estamos verificando a disponibilidade em nossa agenda. Assim que o horário for confirmado, entraremos em contato para validar a data e o horário.
-                    '
-                ];
-
-                $this->enviarEmail($dados,$agenda->email);
-            }
-            return back()->with(['success'=>'Agenda guardada com sucesso! Verifique seu email que a recepcionista entrará em contacto em breve, aguarde porfavor!']);
+            
+            return back()->with(['success'=>'Agenda guardada com sucesso!']);
 
         } catch (\Throwable $th) {
             //throw $th;

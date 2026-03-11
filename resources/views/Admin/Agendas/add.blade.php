@@ -46,12 +46,7 @@
             </div>
         </form>
     </div>
-    @if ($errors->any())
-        @include('Admin.error')
-    @endif
-    @if (session('success'))
-        @include('Admin.success')
-    @endif
+ 
     <script>
         // Configurar data máxima para o input de nascimento
         const dataInput = document.getElementById("dataNascimento");

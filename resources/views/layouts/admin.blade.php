@@ -66,7 +66,7 @@
 
                     <a href="{{ route('consultas') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ request()->routeIs('consultas','add-consulta','show-consulta')? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
                         <span class="material-symbols-sharp">medical_services</span>
-                        <span class="font-medium">Triagem</span>
+                        <span class="font-medium">Consultas</span>
                     </a>
               @if (auth()->check() && auth()->user()->nivel == 'A')
                     
@@ -165,6 +165,8 @@
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
 
     <!-- Scripts de Interatividade -->
+    @if ($errors->any()) @include('Admin.error') @endif
+    @if (session('success')) @include('Admin.success') @endif
     <script>
         // Menu Lateral Mobile
         function toggleSidebar() {

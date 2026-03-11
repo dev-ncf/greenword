@@ -75,7 +75,6 @@
 
 </div>
 
-@if ($errors->any()) @include('Admin.error') @endif
-@if (session('success')) @include('Admin.success') @endif
+
 
 @endsection

@@ -18,7 +18,7 @@ class ConsultasController extends Controller
      * Display a listing of the resource.
      */
     private function novasAgendas(){
-       return Agenda::where('tipo', '=','Externa')->where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
+       return Agenda::where('estado', '=','0')->orderBy('id', 'desc')->paginate(3);
     }
     public function index(Request $request, $data=null)
     {
@@ -41,7 +41,7 @@ class ConsultasController extends Controller
     {
         //
         $pacientes = Paciente::all();
-        $diagnosticos = Diagnostico::where('paciente_id','=',$paciente->id)->get();
+        $diagnosticos = Diagnostico::where('paciente_id','=',$paciente->id)->where('consulta_id',null)->get();
         $doencas = Doenca::all();
         $medicos = Medico::all();
         $ultimasAtualizacoes = $this->novasAgendas();
@@ -57,6 +57,7 @@ class ConsultasController extends Controller
          $validatedData = $request->validate([
         'paciente_id' => 'required|exists:pacientes,id',
         'doenca' => 'nullable',             //
+        'estado' => 'nullable',             //
         'doenca.*' => 'exists:doencas,id',
         'data_consulta' => 'required|date',
         'nivel' => 'required|string',
@@ -96,10 +97,16 @@ class ConsultasController extends Controller
     
             // Relacionar doença com paciente
             $paciente->doencas()->syncWithoutDetaching([$doencaId]);
+            Diagnostico::create([
+                'paciente_id'=> $paciente->id,
+                'consulta_id'=> $consulta->id,
+                'doenca_id'=>$doencaId,
+                'estado'=>implode(',', $validatedData['estado'])
+            ]);
         }
     }
     DB::commit();
-    return back()->with(['success'=>'Consulta registrada com sucesso!']);
+    return redirect()->route('show-consulta',$consulta->id)->with(['success'=>'Consulta registrada com sucesso!']);
     } catch (Throwable $th) {
         //throw $th;
         DB::rollBack();
@@ -118,7 +125,7 @@ class ConsultasController extends Controller
     {
         //
           $ultimasAtualizacoes = $this->novasAgendas();
-          $proximaAgenda = Agenda::where('paciente_id','=',$consulta->paciente_id)->where('data','>',date('Y-m-d'))->first();
+          $proximaAgenda = Agenda::where('paciente_id','=',$consulta->paciente_id)->first();
         return view('Admin.Consultas.show',compact(['consulta','ultimasAtualizacoes','proximaAgenda']));
     }
     public function estado(Consulta $consulta)

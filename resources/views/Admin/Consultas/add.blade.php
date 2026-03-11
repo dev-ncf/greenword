@@ -64,7 +64,7 @@
         </div>
 
         <!-- COLUNA DIREITA: Triagem e Ações -->
-        <div class="space-y-6">
+        <div class="space-y-6" >
             
             <!-- Nível -->
             <div class="bg-white dark:bg-[#202528] p-8 rounded-[2.5rem] shadow-sm border border-gray-50 dark:border-gray-800">
@@ -87,7 +87,7 @@
                     </button>
                 </div>
 
-                <div class="space-y-2">
+                <div class="space-y-2" id="lista-diagnosticos">
                     @forelse ($diagnosticos as $item)
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-[#181a1e] rounded-xl border border-gray-100 dark:border-gray-700 group">
                             <input type="hidden" name="doenca[]" value="{{ $item->doenca->id }}">
@@ -119,7 +119,7 @@
 
 <!-- MODAL DE DIAGNÓSTICO (ESTILO ORIGINAL RESTAURADO) -->
 <div id="modal">
-    <form method="POST" action="{{ route('diagnostico') }}" style="background: white; padding: 30px; border-radius: 15px; width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid #4CAF50;">
+    <form onsubmit="addDiagnostico(event)" style="background: white; padding: 30px; border-radius: 15px; width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid #4CAF50;">
         @csrf
         <h2 style="color: #2e7d32; margin-top: 0; font-size: 1.5rem; font-weight: 800; font-family: 'Poppins', sans-serif;">Dados do Paciente</h2>
 
@@ -133,7 +133,7 @@
 
         <div style="margin-bottom: 20px;">
             <label style="display: block; color: #666; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; text-transform: uppercase;">Diagnóstico / Doença</label>
-            <select name="doenca_id"  style="width: 100%; padding: 0 10px; border: 1px solid #c8e6c9; border-radius: 8px; outline: none; background: white; cursor: pointer; font-family: 'Poppins', sans-serif;">
+            <select name="doenca_id"  id='doenca_id' style="width: 100%; padding: 0 10px; border: 1px solid #c8e6c9; border-radius: 8px; outline: none; background: white; cursor: pointer; font-family: 'Poppins', sans-serif;">
                 <option value="" disabled selected>Selecione uma doenca</option>
                 @foreach ($doencas as $item)
                 <option value="{{ $item->id }}">{{ $item->nome }}</option>
@@ -143,7 +143,7 @@
 
         <div style="margin-bottom: 25px;">
             <label style="display: block; color: #666; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; text-transform: uppercase;">Resultado do Teste</label>
-            <select name="estado" style="width: 100%; padding: 0 10px; border: 1px solid #c8e6c9; border-radius: 8px; outline: none; background: white; cursor: pointer; font-family: 'Poppins', sans-serif;">
+            <select name="estado" id='estado' style="width: 100%; padding: 0 10px; border: 1px solid #c8e6c9; border-radius: 8px; outline: none; background: white; cursor: pointer; font-family: 'Poppins', sans-serif;">
                 <option value="0">⚪ Negativo</option>
                 <option value="1">🟢 Positivo</option>
             </select>
@@ -181,15 +181,65 @@
 </style>
 
 <script>
-    function openModal() {
-        document.getElementById("modal").classList.add("mostrar");
+// Função para abrir o modal
+function openModal() {
+    document.getElementById('modal').classList.add('mostrar');
+}
+
+// Função para fechar o modal
+function closeModal() {
+    document.getElementById('modal').classList.remove('mostrar');
+}
+
+// Função para adicionar diagnóstico
+function addDiagnostico(e){
+    e.preventDefault();
+
+    let doencaSelect = document.getElementById('doenca_id');
+    let estadoSelect = document.getElementById('estado');
+
+    let doencaId = doencaSelect.value;
+    let doencaNome = doencaSelect.options[doencaSelect.selectedIndex].text;
+    let estado = estadoSelect.value;
+
+    if(!doencaId){
+        alert("Selecione uma doença");
+        return;
     }
 
-    function closeModal() {
-        document.getElementById("modal").classList.remove("mostrar");
-    }
+    let estadoTexto = estado == 1 ? "Positivo" : "Negativo";
+    let estadoClasse = estado == 1 ? "text-red-500" : "text-emerald-500";
+
+    let container = document.getElementById('lista-diagnosticos');
+    
+    // Remove o aviso de "Nenhum teste efetuado" se existir
+    let aviso = container.querySelector('p');
+    if(aviso) aviso.remove();
+
+    let item = document.createElement('div');
+    item.className = "flex items-center justify-between p-3 bg-gray-50 dark:bg-[#181a1e] rounded-xl border border-gray-100 dark:border-gray-700";
+
+    item.innerHTML = `
+        <input type="hidden" name="doenca[]" value="${doencaId}">
+        <input type="hidden" name="estado[]" value="${estado}">
+        <div class="flex flex-col">
+            <span class="text-xs font-bold">${doencaNome}</span>
+            <span class="text-[9px] font-black uppercase ${estadoClasse}">
+                ${estadoTexto}
+            </span>
+        </div>
+        <button type="button" onclick="this.parentElement.remove()" class="text-gray-300 hover:text-red-500">
+            <span class="material-symbols-sharp text-lg">delete</span>
+        </button>
+    `;
+
+    container.appendChild(item);
+    closeModal();
+    
+    // Resetar o select após adicionar
+    doencaSelect.value = "";
+}
 </script>
 
-@if ($errors->any()) @include('Admin.error') @endif
-@if (session('success')) @include('Admin.success') @endif
+
 @endsection
