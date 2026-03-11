@@ -12,13 +12,14 @@
             <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Detalhes do Agendamento</h1>
             <p class="text-sm text-gray-500">Informações sobre a consulta programada.</p>
         </div>
-
+ @if (auth()->check() && auth()->user()->nivel == 'B')
         <!-- Botão Principal: Iniciar Consulta -->
         <a href="{{ route('add-consulta', $agenda->paciente_id) }}" 
            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#7380ec] hover:bg-[#5a65c1] text-white font-bold rounded-2xl transition-all shadow-lg shadow-indigo-200 dark:shadow-none hover:scale-105">
             <span class="material-symbols-sharp">clinical_notes</span>
-            Iniciar Atendimento / Marcar Consulta
+            Iniciar Atendimento
         </a>
+@endif
     </div>
 
     <!-- Grid de Conteúdo -->
@@ -54,7 +55,7 @@
             </div>
 
             <!-- Card de Alerta -->
-            <div class="bg-gradient-to-br from-[#ffbb55] to-[#ff7782] rounded-[2rem] p-6 text-white shadow-lg">
+            {{-- <div class="bg-gradient-to-br from-[#ffbb55] to-[#ff7782] rounded-[2rem] p-6 text-white shadow-lg">
                 <div class="flex items-start gap-4">
                     <span class="material-symbols-sharp text-3xl">priority_high</span>
                     <div>
@@ -62,7 +63,7 @@
                         <p class="text-sm opacity-90">Confirme a presença do paciente com 24h de antecedência.</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Coluna Direita: Descrição e Notas -->

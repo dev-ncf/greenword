@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-pt" class="light"> <!-- Classe 'dark' alterna o tema -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SiGEH - Dashboard</title>
-    
+
     <!-- Tailwind CDN (Para produção, use o compilado) -->
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <style>
-        body { font-family: 'Poppins', sans-serif; }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
         /* Esconder scrollbar padrão mantendo funcionalidade */
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         /* Variáveis de cores originais adaptadas */
         :root {
             --primary: #41f1b6;
@@ -26,20 +38,23 @@
             --dark-variant: #677483;
             --bg-color: #f6f6f9;
         }
+
         .dark {
             --bg-color: #181a1e;
         }
     </style>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
 
 <body class="bg-[#f6f6f9] dark:bg-[#181a1e] text-[#363949] dark:text-[#edeffd] antialiased overflow-hidden">
 
-    
+
     <div class="flex h-screen overflow-hidden">
-        
+
         <!-- ================= SIDEBAR FIXA ================= -->
-        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-[#202528] transition-transform duration-300 transform -translate-x-full lg:translate-x-0 border-r border-gray-200 dark:border-gray-800">
+        <aside id="sidebar"
+            class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-[#202528] transition-transform duration-300 transform -translate-x-full lg:translate-x-0 border-r border-gray-200 dark:border-gray-800">
             <div class="flex flex-col h-full">
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-20 px-8">
@@ -54,43 +69,52 @@
                 <!-- Menu Nav -->
                 <nav class="flex-1 px-4 space-y-2 overflow-y-auto hide-scrollbar">
                     @php $route = Route::currentRouteName(); @endphp
-                    
-                    <a href="{{ route('dashboard') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ $route == 'dashboard' ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
+
+                    <a href="{{ route('dashboard') }}"
+                        class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ $route == 'dashboard' ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
                         <span class="material-symbols-sharp">grid_view</span>
                         <span class="font-medium">Dashboard</span>
                     </a>
-                    <a href="{{ route('pacientes') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'pacientes') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
+                    <a href="{{ route('agendas') }}"
+                        class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'agendas') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
+                        <span class="material-symbols-sharp">personal_injury</span>
+                        <span class="font-medium">Agendas</span>
+                    </a>
+                    <a href="{{ route('pacientes') }}"
+                        class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'pacientes') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
                         <span class="material-symbols-sharp">personal_injury</span>
                         <span class="font-medium">Pacientes</span>
                     </a>
 
-                    <a href="{{ route('consultas') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ request()->routeIs('consultas','add-consulta','show-consulta')? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
+                    <a href="{{ route('consultas') }}"
+                        class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ request()->routeIs('consultas', 'add-consulta', 'show-consulta') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
                         <span class="material-symbols-sharp">medical_services</span>
                         <span class="font-medium">Consultas</span>
                     </a>
-              @if (auth()->check() && auth()->user()->nivel == 'A')
-                    
+                    @if (auth()->check() && auth()->user()->nivel == 'A')
+                        <a href="{{ route('medicos') }}"
+                            class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'medicos') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
+                            <span class="material-symbols-sharp">stethoscope</span>
+                            <span class="font-medium">Médicos</span>
+                        </a>
+                        <a href="{{ route('doencas') }}"
+                            class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ request()->routeIs('doencas', 'add-doencas', 'show-doenca') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
+                            <span class="material-symbols-sharp">diagnosis</span>
+                            <span class="font-medium">Doencas</span>
+                        </a>
 
-                    <a href="{{ route('medicos') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'medicos') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
-                        <span class="material-symbols-sharp">stethoscope</span>
-                        <span class="font-medium">Médicos</span>
-                    </a>
-                      <a href="{{ route('doencas') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ request()->routeIs('doencas','add-doenca','show-doenca')? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
-                       <span class="material-symbols-sharp">diagnosis</span>
-                        <span class="font-medium">Doencas</span>
-                    </a>
-
-                    <a href="{{ route('usuarios') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'usuarios') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
-                        <span class="material-symbols-sharp">group</span>
-                        <span class="font-medium">Usuários</span>
-                    </a>
+                        <a href="{{ route('usuarios') }}"
+                            class="flex items-center gap-4 px-4 py-3 rounded-lg transition-all group {{ str_contains($route, 'usuarios') ? 'bg-gray-100 dark:bg-gray-700 text-[#41f1b6] border-l-4 border-[#41f1b6]' : 'text-[#7d8da1] hover:text-[#41f1b6]' }}">
+                            <span class="material-symbols-sharp">group</span>
+                            <span class="font-medium">Usuários</span>
+                        </a>
                 </nav>
- 
-             @endif
+                @endif
                 <!-- Logout -->
                 <div class="p-4 border-t border-gray-100 dark:border-gray-800">
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                       class="flex items-center gap-4 px-4 py-3 text-[#7d8da1] hover:text-[#ff7782] transition-colors">
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        class="flex items-center gap-4 px-4 py-3 text-[#7d8da1] hover:text-[#ff7782] transition-colors">
                         <span class="material-symbols-sharp">logout</span>
                         <span class="font-medium">Sair</span>
                     </a>
@@ -100,12 +124,14 @@
 
         <!-- ================= CONTEÚDO À DIREITA ================= -->
         <div class="flex flex-col flex-1 w-full lg:pl-64">
-            
+
             <!-- HEADER FIXO -->
-            <header class="h-20 bg-white/80 dark:bg-[#202528]/80 backdrop-blur-md sticky top-0 z-40 border-b border-gray-200 dark:border-gray-800 px-4 lg:px-12 flex items-center justify-between">
+            <header
+                class="h-20 bg-white/80 dark:bg-[#202528]/80 backdrop-blur-md sticky top-0 z-40 border-b border-gray-200 dark:border-gray-800 px-4 lg:px-12 flex items-center justify-between">
                 <!-- Left: Burger & Title -->
                 <div class="flex items-center gap-4">
-                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+                    <button onclick="toggleSidebar()"
+                        class="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
                         <span class="material-symbols-sharp">menu</span>
                     </button>
                     <h1 class="text-xl font-bold hidden md:block">Banco de Socorro</h1>
@@ -114,8 +140,10 @@
                 <!-- Right: Theme, Search, Profile -->
                 <div class="flex items-center gap-4 md:gap-8">
                     <!-- Barra de Busca (Mini) -->
-                    <form action="{{ route('pacientes') }}" class="hidden sm:flex items-center bg-gray-100 dark:bg-[#181a1e] rounded-full px-4 py-1.5 shadow-inner">
-                        <input type="text" name="search" placeholder="Buscar..." class="bg-transparent border-none focus:ring-0 text-sm w-32 md:w-48 outline-none">
+                    <form action="{{ route('pacientes') }}"
+                        class="hidden sm:flex items-center bg-gray-100 dark:bg-[#181a1e] rounded-full px-4 py-1.5 shadow-inner">
+                        <input type="text" name="search" placeholder="Buscar..."
+                            class="bg-transparent border-none focus:ring-0 text-sm w-32 md:w-48 outline-none">
                         <button type="submit" class="material-symbols-sharp text-gray-400 text-lg">search</button>
                     </form>
 
@@ -133,7 +161,8 @@
                             <small class="text-xs text-[#7d8da1]">Administrador</small>
                         </div>
                         <div class="w-10 h-10 rounded-full border-2 border-[#41f1b6] p-0.5">
-                            <img src="{{ asset('img/1-intro-photo-final.webp') }}" class="w-full h-full rounded-full object-cover shadow-sm">
+                            <img src="{{ asset('img/1-intro-photo-final.webp') }}"
+                                class="w-full h-full rounded-full object-cover shadow-sm">
                         </div>
                     </div>
                 </div>
@@ -141,32 +170,37 @@
 
             <!-- MAIN CONTENT AREA -->
             <main class="flex-1 overflow-y-auto p-4 lg:p-12 mt-0">
-                
+
                 <div class="grid grid-cols-1 xl:grid-cols- gap-8">
-                    
-                                         
-                        
-                        <!-- Onde entra o conteúdo das outras páginas -->
-                        <section class="min-h-[500px]">
-                            @yield('content')
-                        </section>
-                    
+
+
+
+                    <!-- Onde entra o conteúdo das outras páginas -->
+                    <section class="min-h-[500px]">
+                        @yield('content')
+                    </section>
+
 
                 </div>
             </main>
         </div>
 
         <!-- Overlay for Mobile Sidebar -->
-        <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-300"></div>
+        <div id="sidebar-overlay" onclick="toggleSidebar()"
+            class="fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-300"></div>
 
     </div>
-  
+
 
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
 
     <!-- Scripts de Interatividade -->
-    @if ($errors->any()) @include('Admin.error') @endif
-    @if (session('success')) @include('Admin.success') @endif
+    @if ($errors->any())
+        @include('Admin.error')
+    @endif
+    @if (session('success'))
+        @include('Admin.success')
+    @endif
     <script>
         // Menu Lateral Mobile
         function toggleSidebar() {
@@ -189,7 +223,7 @@
         function toggleTheme() {
             const html = document.documentElement;
             const ball = document.getElementById('theme-ball');
-            
+
             if (html.classList.contains('dark')) {
                 html.classList.remove('dark');
                 ball.style.transform = 'translateX(0)';
@@ -202,10 +236,12 @@
         }
 
         // Carregar tema salvo
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
+                '(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
             document.getElementById('theme-ball').style.transform = 'translateX(24px)';
         }
     </script>
 </body>
+
 </html>

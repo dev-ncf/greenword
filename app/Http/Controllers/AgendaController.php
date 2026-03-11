@@ -36,6 +36,7 @@ public function enviarEmail($dados=null,$destination = null)
         //
         $todasAgendas = Agenda::all();
         $query = Agenda::query();
+        $query->where('estado','0');
         $agendas = $query->paginate(4);
         $ultimasAtualizacoes = $this->novasAgendas();
         // dd($ultimasAtualizacoes);
@@ -67,6 +68,7 @@ public function enviarEmail($dados=null,$destination = null)
                 'paciente_id'    => 'exists:pacientes,id',
                 'descricao'       => 'nullable',
                 'prioridade'       => 'nullable',
+                'estado'=>0
                 // ... outras regras ...
             ]);
 

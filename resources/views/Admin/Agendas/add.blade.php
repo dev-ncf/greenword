@@ -4,7 +4,7 @@
         <div class="head">
             <h1>Registo de Agendas</h1>
         </div>
-        <form action="{{ route('store-agendas','Interna') }}" method="POST" class="form">
+        <form action="{{ route('agendas.store') }}" method="POST" class="form">
             @csrf
 
             <div class="card-control">
